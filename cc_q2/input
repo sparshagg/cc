@@ -1,0 +1,21 @@
+int a;
+int b;
+int c;
+a = 5;
+b = 10;
+
+if (a < b)
+    {
+        c = a + b;
+    }
+    else
+    {
+        c = a - b;
+    }
+
+    while (c < 50)
+    {
+        c = c + 5;
+    }
+
+    print(c);
