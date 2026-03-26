@@ -2,7 +2,7 @@ int a;
 int b;
 a = 2;
 
-while (a <= 2) 
+while (a <= 2) {
     printf("A is less than or equal to 2.")
 }
 
