@@ -12,8 +12,6 @@ int last_printf_line = 1;
 int last_id_line = 1;
 %}
 
-Added more functions
-
 DG [0-9]
 LR [a-zA-Z]
 ID {LR}({LR}|{DG})*
