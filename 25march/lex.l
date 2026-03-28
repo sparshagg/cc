@@ -9,7 +9,6 @@ int last_if_line = 1;
 int last_while_line = 1;
 int last_print_line = 1;
 int last_printf_line = 1;
-int last_id_line = 1;
 %}
 
 DG [0-9]
