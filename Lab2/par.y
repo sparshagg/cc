@@ -167,7 +167,7 @@ void yyerror(const char *s) {
 }
 
 int main() {
-    yyin = fopen("input", "r");
+    yyin = fopen("input.txt", "r");
     if (!yyin) {
         printf("Error: Could not open file named 'input'\n");
         return 1;
