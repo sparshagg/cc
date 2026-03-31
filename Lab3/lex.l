@@ -61,7 +61,7 @@ SCON \"([^\"\\\n]|\\.)*\"
 "{" {return LC;}
 "}" {return RC;}
 
-[\t ]+ ;
+[\t \r]+ ;
 \n {err++;}
 . {printf("Line %d:LEXICAL ERROR - Unknown char:%s\n",err,yytext);}
 

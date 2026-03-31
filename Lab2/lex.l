@@ -54,7 +54,7 @@ FCON {DG}+\.{DG}+
 "{" { printToken("LC", yytext); return LC; }
 "}" { printToken("RC", yytext); return RC; }
 
-[\t ]+ ;
+[\t \r]+ ;
 \n {err++;}
 . {printf("Line %d:LEXICAL ERROR - Unknown char:%s\n",err,yytext);}
 
