@@ -479,19 +479,13 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "lex.l"
-#line 2 "lex.l"
+#line 1 "q1.l"
+#line 2 "q1.l"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "y.tab.h"
-int err = 1;
-
-void printToken(const char *token, const char *lexeme) {
-    printf("<%s, %s>\n", token, lexeme);
-}
-#line 493 "lex.yy.c"
-#line 494 "lex.yy.c"
+int err = 1; /* for reporting error*/
+#line 487 "lex.yy.c"
+#line 488 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -708,9 +702,9 @@ YY_DECL
 		}
 
 	{
-#line 19 "lex.l"
+#line 13 "q1.l"
 
-#line 713 "lex.yy.c"
+#line 707 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -769,176 +763,176 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 20 "lex.l"
-{ printToken("INT", yytext); return INT; }
+#line 14 "q1.l"
+{printf("Line %d: KEYWORD(int)\n", err);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "lex.l"
-{ printToken("FLOAT", yytext); return FLOAT; }
+#line 15 "q1.l"
+{printf("Line %d: KEYWORD(float)\n", err);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 22 "lex.l"
-{ printToken("IF", yytext); return IF; }
+#line 16 "q1.l"
+{printf("Line %d: KEYWORD(if)\n", err);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "lex.l"
-{ printToken("ELSE", yytext); return ELSE; }
+#line 17 "q1.l"
+{printf("Line %d: KEYWORD(else)\n", err);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "lex.l"
-{ printToken("WHILE", yytext); return WHILE; }
+#line 18 "q1.l"
+{printf("Line %d: KEYWORD(while)\n", err);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 25 "lex.l"
-{ printToken("PRINT", yytext); return PRINT; }
+#line 19 "q1.l"
+{printf("Line %d: KEYWORD(print)\n", err);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "lex.l"
-{ yylval.str = strdup(yytext); printToken("FCON", yytext); return FCON; }
+#line 21 "q1.l"
+{printf("Line %d: FLT_CONST(%s)\n", err, yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 28 "lex.l"
-{ yylval.str = strdup(yytext); printToken("ICON", yytext); return ICON; }
+#line 22 "q1.l"
+{printf("Line %d: INT_CONST(%d)\n", err, atoi(yytext));}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 29 "lex.l"
-{ yylval.str = strdup(yytext); printToken("ID", yytext); return ID; }
+#line 24 "q1.l"
+{printf("Line %d: IDENTIFIER(%s)\n",err,yytext);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 31 "lex.l"
-{ printToken("PLUS", yytext); return PLUS; }
+#line 26 "q1.l"
+{printf("Line %d: ARITH_OP(+, plus)\n",err);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 32 "lex.l"
-{ printToken("MINUS", yytext); return MINUS; }
+#line 27 "q1.l"
+{printf("Line %d: ARITH_OP(-, minus)\n",err);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 33 "lex.l"
-{ printToken("MUL", yytext); return MUL; }
+#line 28 "q1.l"
+{printf("Line %d: ARITH_OP(*, multiply)\n", err);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 34 "lex.l"
-{ printToken("DIV", yytext); return DIV; }
+#line 29 "q1.l"
+{printf("Line %d: ARITH_OP(/, divide)\n",err);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 35 "lex.l"
-{ printToken("MOD", yytext); return MOD; }
+#line 30 "q1.l"
+{printf("Line %d: ARITH_OP(%%, modulus)\n",err);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 37 "lex.l"
-{ printToken("EQ", yytext); return EQ; }
+#line 32 "q1.l"
+{printf("Line %d: REL_OP(==, equal to)\n",err);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 38 "lex.l"
-{ printToken("NEQ", yytext); return NEQ; }
+#line 33 "q1.l"
+{printf("Line %d: REL_OP(!=, not equal to)\n",err);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 39 "lex.l"
-{ printToken("LEQ", yytext); return LEQ; }
+#line 34 "q1.l"
+{printf("Line %d: REL_OP(<=, less than equal to)\n",err);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 40 "lex.l"
-{ printToken("GEQ", yytext); return GEQ; }
+#line 35 "q1.l"
+{printf("Line %d: REL_OP(>=, greater than equal to)\n",err);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 41 "lex.l"
-{ printToken("LT", yytext); return LT; }
+#line 36 "q1.l"
+{printf("Line %d: REL_OP(<, less than)\n",err);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 42 "lex.l"
-{ printToken("GT", yytext); return GT; }
+#line 37 "q1.l"
+{printf("Line %d: REL_OP(>, greater than)\n",err);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "lex.l"
-{ printToken("AND", yytext); return AND; }
+#line 39 "q1.l"
+{printf("Line %d: BOOL_OP(&&, and)\n", err);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 45 "lex.l"
-{ printToken("OR", yytext); return OR; }
+#line 40 "q1.l"
+{printf("Line %d: BOOL_OP(||,or)\n",err);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "lex.l"
-{ printToken("NOT", yytext); return NOT; }
+#line 41 "q1.l"
+{printf("Line %d: BOOL_OP(!, not)\n",err);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 48 "lex.l"
-{ printToken("ASGN", yytext); return ASGN; }
+#line 43 "q1.l"
+{printf("Line %d: ASSIGN_OP(=)\n",err);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 50 "lex.l"
-{ printToken("SEMI", yytext); return SEMI; }
+#line 45 "q1.l"
+{printf("Line %d: PUNCT(; semicolon)\n",err);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 51 "lex.l"
-{ printToken("COMMA", yytext); return COMMA; }
+#line 46 "q1.l"
+{printf("Line %d: PUNCT(, comma)\n",err);}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 52 "lex.l"
-{ printToken("LP", yytext); return LP; }
+#line 47 "q1.l"
+{printf("Line %d: Left Parenthesis\n",err);}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 53 "lex.l"
-{ printToken("RP", yytext); return RP; }
+#line 48 "q1.l"
+{printf("Line %d: Right Parenthesis\n",err);}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 54 "lex.l"
-{ printToken("LC", yytext); return LC; }
+#line 49 "q1.l"
+{printf("Line %d: Left Curly\n",err);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 55 "lex.l"
-{ printToken("RC", yytext); return RC; }
+#line 50 "q1.l"
+{printf("Line %d: Right Curly\n",err);}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 57 "lex.l"
+#line 52 "q1.l"
 ;
 	YY_BREAK
 case 32:
 /* rule 32 can match eol */
 YY_RULE_SETUP
-#line 58 "lex.l"
-{err++;}
+#line 53 "q1.l"
+{err++ ;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 59 "lex.l"
+#line 54 "q1.l"
 {printf("Line %d:LEXICAL ERROR - Unknown char:%s\n",err,yytext);}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 61 "lex.l"
+#line 56 "q1.l"
 ECHO;
 	YY_BREAK
-#line 941 "lex.yy.c"
+#line 935 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1943,10 +1937,24 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 61 "lex.l"
+#line 56 "q1.l"
 
 
 int yywrap() {
  return 1;
 }
 
+int main() {
+ extern FILE *yyin;
+ yyin = fopen("input.txt","r");
+ 
+ if (!yyin) {
+     printf("Error: Could not open file named 'input'\n");
+     return 1;
+ }
+
+ printf("Starting Lexical Analysis\n");
+ yylex();
+ printf("Lexical Analysis Complete\n");
+ return 0;
+}

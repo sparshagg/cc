@@ -147,6 +147,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "parser_types.h"
 
 extern int yylex();
 extern int err;
@@ -158,25 +159,10 @@ extern int last_id_line;
 extern char *yytext;
 extern FILE *yyin;
 
-typedef struct ASTNode {
+struct ASTNode {
     char *label;
     struct ASTNode *left, *mid, *right;
-} ASTNode;
-
-typedef enum {
-    TYPE_INVALID,
-    TYPE_INT,
-    TYPE_FLOAT,
-    TYPE_BOOL,
-    TYPE_STRING,
-    TYPE_VOID
-} TypeKind;
-
-typedef struct SemVal {
-    ASTNode *node;
-    TypeKind type;
-    int line;
-} SemVal;
+};
 
 typedef struct Symbol {
     char *name;
@@ -570,13 +556,13 @@ SemVal checkUnaryMinus(SemVal expr, int line) {
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 408 "par.y"
+#line 394 "par.y"
 {
     char *str;
     SemVal sem;
 }
 /* Line 193 of yacc.c.  */
-#line 580 "par.tab.c"
+#line 566 "par.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -589,7 +575,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 593 "par.tab.c"
+#line 579 "par.tab.c"
 
 #ifdef short
 # undef short
@@ -908,13 +894,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   436,   436,   451,   452,   456,   457,   458,   463,   471,
-     472,   473,   474,   475,   479,   480,   488,   492,   498,   506,
-     507,   511,   512,   517,   522,   529,   533,   538,   543,   547,
-     553,   557,   562,   567,   571,   580,   584,   588,   592,   597,
-     602,   607,   612,   617,   622,   630,   634,   638,   643,   648,
-     656,   657,   658,   659,   660,   661,   662,   663,   664,   665,
-     666,   667,   668,   669,   670,   671,   672,   673,   674,   675
+       0,   422,   422,   437,   438,   442,   443,   444,   449,   457,
+     458,   459,   460,   461,   465,   466,   474,   478,   484,   492,
+     493,   497,   498,   503,   508,   515,   519,   524,   529,   533,
+     539,   543,   548,   553,   557,   566,   570,   574,   578,   583,
+     588,   593,   598,   603,   608,   616,   620,   624,   629,   634,
+     642,   643,   644,   645,   646,   647,   648,   649,   650,   651,
+     652,   653,   654,   655,   656,   657,   658,   659,   660,   661
 };
 #endif
 
@@ -1977,7 +1963,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 436 "par.y"
+#line 422 "par.y"
     {
         (yyval.sem) = (yyvsp[(1) - (1)].sem);
         if (error_count == 0) {
@@ -1993,27 +1979,27 @@ yyreduce:
     break;
 
   case 3:
-#line 451 "par.y"
+#line 437 "par.y"
     { (yyval.sem) = makeSem(makeNode("StmtList", (yyvsp[(1) - (2)].sem).node, (yyvsp[(2) - (2)].sem).node, NULL), TYPE_VOID, (yyvsp[(1) - (2)].sem).line); ;}
     break;
 
   case 4:
-#line 452 "par.y"
+#line 438 "par.y"
     { (yyval.sem) = makeSem(NULL, TYPE_VOID, err); ;}
     break;
 
   case 5:
-#line 456 "par.y"
+#line 442 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 6:
-#line 457 "par.y"
+#line 443 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 7:
-#line 458 "par.y"
+#line 444 "par.y"
     {
           reportSyntaxDetailAtLine(err, "discarded invalid statement up to ';'");
           (yyval.sem) = makeSem(NULL, TYPE_INVALID, err);
@@ -2022,7 +2008,7 @@ yyreduce:
     break;
 
   case 8:
-#line 463 "par.y"
+#line 449 "par.y"
     {
           reportSyntaxDetailAtLine(err, "discarded invalid statement before '}'");
           (yyval.sem) = makeSem(NULL, TYPE_INVALID, err);
@@ -2031,37 +2017,37 @@ yyreduce:
     break;
 
   case 9:
-#line 471 "par.y"
+#line 457 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 10:
-#line 472 "par.y"
+#line 458 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 11:
-#line 473 "par.y"
+#line 459 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 12:
-#line 474 "par.y"
+#line 460 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 13:
-#line 475 "par.y"
+#line 461 "par.y"
     { (yyval.sem) = (yyvsp[(1) - (1)].sem); ;}
     break;
 
   case 14:
-#line 479 "par.y"
+#line 465 "par.y"
     { (yyval.sem) = makeSem(makeNode("Block", (yyvsp[(2) - (3)].sem).node, NULL, NULL), TYPE_VOID, err); ;}
     break;
 
   case 15:
-#line 480 "par.y"
+#line 466 "par.y"
     {
           reportSyntaxDetailAtLine(err, "missing '}' to close block");
           (yyval.sem) = makeSem(makeNode("Block", (yyvsp[(2) - (3)].sem).node, NULL, NULL), TYPE_VOID, err);
@@ -2070,7 +2056,7 @@ yyreduce:
     break;
 
   case 16:
-#line 488 "par.y"
+#line 474 "par.y"
     {
           declareSymbol((yyvsp[(2) - (3)].str), (yyvsp[(1) - (3)].sem).type, last_id_line);
           (yyval.sem) = makeSem(makeNode("Decl", (yyvsp[(1) - (3)].sem).node, makeLeaf((yyvsp[(2) - (3)].str)), NULL), TYPE_VOID, last_id_line);
@@ -2078,7 +2064,7 @@ yyreduce:
     break;
 
   case 17:
-#line 492 "par.y"
+#line 478 "par.y"
     {
           reportSyntaxDetailAtLine(last_id_line, "missing ';' after declaration");
           declareSymbol((yyvsp[(2) - (3)].str), (yyvsp[(1) - (3)].sem).type, last_id_line);
@@ -2088,7 +2074,7 @@ yyreduce:
     break;
 
   case 18:
-#line 498 "par.y"
+#line 484 "par.y"
     {
           reportSyntaxDetailAtLine(err, "missing identifier in declaration");
           (yyval.sem) = makeSem(NULL, TYPE_INVALID, err);
@@ -2097,22 +2083,22 @@ yyreduce:
     break;
 
   case 19:
-#line 506 "par.y"
+#line 492 "par.y"
     { (yyval.sem) = makeSem(makeLeaf("int"), TYPE_INT, err); ;}
     break;
 
   case 20:
-#line 507 "par.y"
+#line 493 "par.y"
     { (yyval.sem) = makeSem(makeLeaf("float"), TYPE_FLOAT, err); ;}
     break;
 
   case 21:
-#line 511 "par.y"
+#line 497 "par.y"
     { (yyval.sem) = validateAssignment((yyvsp[(1) - (4)].str), (yyvsp[(3) - (4)].sem), last_id_line); ;}
     break;
 
   case 22:
-#line 512 "par.y"
+#line 498 "par.y"
     {
           reportSyntaxDetailAtLine(last_id_line, "missing ';' after assignment");
           (yyval.sem) = validateAssignment((yyvsp[(1) - (4)].str), (yyvsp[(3) - (4)].sem), last_id_line);
@@ -2121,7 +2107,7 @@ yyreduce:
     break;
 
   case 23:
-#line 517 "par.y"
+#line 503 "par.y"
     {
           reportSyntaxDetailAtLine(last_id_line, "missing expression on right-hand side of assignment");
           (yyval.sem) = makeSem(NULL, TYPE_INVALID, last_id_line);
@@ -2130,7 +2116,7 @@ yyreduce:
     break;
 
   case 24:
-#line 522 "par.y"
+#line 508 "par.y"
     {
           reportSyntaxDetailAtLine(last_id_line, "missing '=' in assignment");
           (yyval.sem) = makeSem(NULL, TYPE_INVALID, last_id_line);
@@ -2138,7 +2124,7 @@ yyreduce:
     break;
 
   case 25:
-#line 529 "par.y"
+#line 515 "par.y"
     {
           validatePrint((yyvsp[(3) - (5)].sem), last_print_line);
           (yyval.sem) = makeSem(makeNode("Print", (yyvsp[(3) - (5)].sem).node, NULL, NULL), TYPE_VOID, last_print_line);
@@ -2146,7 +2132,7 @@ yyreduce:
     break;
 
   case 26:
-#line 533 "par.y"
+#line 519 "par.y"
     {
           reportSyntaxDetailAtLine(last_print_line, "missing '(' after 'print'");
           validatePrint((yyvsp[(2) - (4)].sem), last_print_line);
@@ -2155,7 +2141,7 @@ yyreduce:
     break;
 
   case 27:
-#line 538 "par.y"
+#line 524 "par.y"
     {
           reportSyntaxDetailAtLine(last_print_line, "missing ')' after print expression");
           validatePrint((yyvsp[(3) - (4)].sem), last_print_line);
@@ -2164,7 +2150,7 @@ yyreduce:
     break;
 
   case 28:
-#line 543 "par.y"
+#line 529 "par.y"
     {
           reportSyntaxDetailAtLine(last_print_line, "missing expression inside print");
           (yyval.sem) = makeSem(makeNode("Print", NULL, NULL, NULL), TYPE_VOID, last_print_line);
@@ -2172,7 +2158,7 @@ yyreduce:
     break;
 
   case 29:
-#line 547 "par.y"
+#line 533 "par.y"
     {
           reportSyntaxDetailAtLine(last_print_line, "missing ';' after print statement");
           validatePrint((yyvsp[(3) - (5)].sem), last_print_line);
@@ -2182,7 +2168,7 @@ yyreduce:
     break;
 
   case 30:
-#line 553 "par.y"
+#line 539 "par.y"
     {
           validatePrintf((yyvsp[(3) - (5)].sem), last_printf_line);
           (yyval.sem) = makeSem(makeNode("Printf", (yyvsp[(3) - (5)].sem).node, NULL, NULL), TYPE_VOID, last_printf_line);
@@ -2190,7 +2176,7 @@ yyreduce:
     break;
 
   case 31:
-#line 557 "par.y"
+#line 543 "par.y"
     {
           reportSyntaxDetailAtLine(last_printf_line, "missing '(' after 'printf'");
           validatePrintf((yyvsp[(2) - (4)].sem), last_printf_line);
@@ -2199,7 +2185,7 @@ yyreduce:
     break;
 
   case 32:
-#line 562 "par.y"
+#line 548 "par.y"
     {
           reportSyntaxDetailAtLine(last_printf_line, "missing ')' after printf argument");
           validatePrintf((yyvsp[(3) - (4)].sem), last_printf_line);
@@ -2208,7 +2194,7 @@ yyreduce:
     break;
 
   case 33:
-#line 567 "par.y"
+#line 553 "par.y"
     {
           reportSyntaxDetailAtLine(last_printf_line, "missing argument inside printf");
           (yyval.sem) = makeSem(makeNode("Printf", NULL, NULL, NULL), TYPE_VOID, last_printf_line);
@@ -2216,7 +2202,7 @@ yyreduce:
     break;
 
   case 34:
-#line 571 "par.y"
+#line 557 "par.y"
     {
           reportSyntaxDetailAtLine(last_printf_line, "missing ';' after printf statement");
           validatePrintf((yyvsp[(3) - (5)].sem), last_printf_line);
@@ -2226,7 +2212,7 @@ yyreduce:
     break;
 
   case 35:
-#line 580 "par.y"
+#line 566 "par.y"
     {
           validateCondition("if", (yyvsp[(3) - (5)].sem), last_if_line);
           (yyval.sem) = makeSem(makeNode("If", (yyvsp[(3) - (5)].sem).node, (yyvsp[(5) - (5)].sem).node, NULL), TYPE_VOID, last_if_line);
@@ -2234,7 +2220,7 @@ yyreduce:
     break;
 
   case 36:
-#line 584 "par.y"
+#line 570 "par.y"
     {
           validateCondition("if", (yyvsp[(3) - (7)].sem), last_if_line);
           (yyval.sem) = makeSem(makeNode("If-Else", (yyvsp[(3) - (7)].sem).node, (yyvsp[(5) - (7)].sem).node, (yyvsp[(7) - (7)].sem).node), TYPE_VOID, last_if_line);
@@ -2242,7 +2228,7 @@ yyreduce:
     break;
 
   case 37:
-#line 588 "par.y"
+#line 574 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing condition inside if");
           (yyval.sem) = makeSem(makeNode("If", NULL, (yyvsp[(4) - (4)].sem).node, NULL), TYPE_VOID, last_if_line);
@@ -2250,7 +2236,7 @@ yyreduce:
     break;
 
   case 38:
-#line 592 "par.y"
+#line 578 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing ')' after if condition");
           validateCondition("if", (yyvsp[(3) - (4)].sem), last_if_line);
@@ -2259,7 +2245,7 @@ yyreduce:
     break;
 
   case 39:
-#line 597 "par.y"
+#line 583 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing ')' after if condition");
           validateCondition("if", (yyvsp[(3) - (6)].sem), last_if_line);
@@ -2268,7 +2254,7 @@ yyreduce:
     break;
 
   case 40:
-#line 602 "par.y"
+#line 588 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing '{' and '}' around if body");
           validateCondition("if", (yyvsp[(3) - (5)].sem), last_if_line);
@@ -2277,7 +2263,7 @@ yyreduce:
     break;
 
   case 41:
-#line 607 "par.y"
+#line 593 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing '{' and '}' around if body");
           validateCondition("if", (yyvsp[(3) - (7)].sem), last_if_line);
@@ -2286,7 +2272,7 @@ yyreduce:
     break;
 
   case 42:
-#line 612 "par.y"
+#line 598 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing '{' and '}' around else body");
           validateCondition("if", (yyvsp[(3) - (7)].sem), last_if_line);
@@ -2295,7 +2281,7 @@ yyreduce:
     break;
 
   case 43:
-#line 617 "par.y"
+#line 603 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing '(' after 'if'");
           validateCondition("if", (yyvsp[(2) - (4)].sem), last_if_line);
@@ -2304,7 +2290,7 @@ yyreduce:
     break;
 
   case 44:
-#line 622 "par.y"
+#line 608 "par.y"
     {
           reportSyntaxDetailAtLine(last_if_line, "missing '(' after 'if'");
           validateCondition("if", (yyvsp[(2) - (6)].sem), last_if_line);
@@ -2313,7 +2299,7 @@ yyreduce:
     break;
 
   case 45:
-#line 630 "par.y"
+#line 616 "par.y"
     {
           validateCondition("while", (yyvsp[(3) - (5)].sem), last_while_line);
           (yyval.sem) = makeSem(makeNode("While", (yyvsp[(3) - (5)].sem).node, (yyvsp[(5) - (5)].sem).node, NULL), TYPE_VOID, last_while_line);
@@ -2321,7 +2307,7 @@ yyreduce:
     break;
 
   case 46:
-#line 634 "par.y"
+#line 620 "par.y"
     {
           reportSyntaxDetailAtLine(last_while_line, "missing condition inside while");
           (yyval.sem) = makeSem(makeNode("While", NULL, (yyvsp[(4) - (4)].sem).node, NULL), TYPE_VOID, last_while_line);
@@ -2329,7 +2315,7 @@ yyreduce:
     break;
 
   case 47:
-#line 638 "par.y"
+#line 624 "par.y"
     {
           reportSyntaxDetailAtLine(last_while_line, "missing ')' after while condition");
           validateCondition("while", (yyvsp[(3) - (4)].sem), last_while_line);
@@ -2338,7 +2324,7 @@ yyreduce:
     break;
 
   case 48:
-#line 643 "par.y"
+#line 629 "par.y"
     {
           reportSyntaxDetailAtLine(last_while_line, "missing '{' and '}' around while body");
           validateCondition("while", (yyvsp[(3) - (5)].sem), last_while_line);
@@ -2347,7 +2333,7 @@ yyreduce:
     break;
 
   case 49:
-#line 648 "par.y"
+#line 634 "par.y"
     {
           reportSyntaxDetailAtLine(last_while_line, "missing '(' after 'while'");
           validateCondition("while", (yyvsp[(2) - (4)].sem), last_while_line);
@@ -2356,108 +2342,108 @@ yyreduce:
     break;
 
   case 50:
-#line 656 "par.y"
+#line 642 "par.y"
     { (yyval.sem) = checkLogical("||", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 51:
-#line 657 "par.y"
+#line 643 "par.y"
     { (yyval.sem) = checkLogical("&&", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 52:
-#line 658 "par.y"
+#line 644 "par.y"
     { (yyval.sem) = checkEquality("==", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 53:
-#line 659 "par.y"
+#line 645 "par.y"
     { (yyval.sem) = checkEquality("!=", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 54:
-#line 660 "par.y"
+#line 646 "par.y"
     { (yyval.sem) = checkComparison("<", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 55:
-#line 661 "par.y"
+#line 647 "par.y"
     { (yyval.sem) = checkComparison(">", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 56:
-#line 662 "par.y"
+#line 648 "par.y"
     { (yyval.sem) = checkComparison("<=", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 57:
-#line 663 "par.y"
+#line 649 "par.y"
     { (yyval.sem) = checkComparison(">=", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 58:
-#line 664 "par.y"
+#line 650 "par.y"
     { (yyval.sem) = checkBinaryNumeric("+", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 59:
-#line 665 "par.y"
+#line 651 "par.y"
     { (yyval.sem) = checkBinaryNumeric("-", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 60:
-#line 666 "par.y"
+#line 652 "par.y"
     { (yyval.sem) = checkBinaryNumeric("*", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 61:
-#line 667 "par.y"
+#line 653 "par.y"
     { (yyval.sem) = checkBinaryNumeric("/", (yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 62:
-#line 668 "par.y"
+#line 654 "par.y"
     { (yyval.sem) = checkModulo((yyvsp[(1) - (3)].sem), (yyvsp[(3) - (3)].sem), err); ;}
     break;
 
   case 63:
-#line 669 "par.y"
+#line 655 "par.y"
     { (yyval.sem) = checkUnaryNot((yyvsp[(2) - (2)].sem), err); ;}
     break;
 
   case 64:
-#line 670 "par.y"
+#line 656 "par.y"
     { (yyval.sem) = checkUnaryMinus((yyvsp[(2) - (2)].sem), err); ;}
     break;
 
   case 65:
-#line 671 "par.y"
+#line 657 "par.y"
     { (yyval.sem) = (yyvsp[(2) - (3)].sem); ;}
     break;
 
   case 66:
-#line 672 "par.y"
+#line 658 "par.y"
     { (yyval.sem) = resolveIdentifier((yyvsp[(1) - (1)].str), last_id_line); ;}
     break;
 
   case 67:
-#line 673 "par.y"
+#line 659 "par.y"
     { (yyval.sem) = makeLeafSem((yyvsp[(1) - (1)].str), TYPE_INT, err); ;}
     break;
 
   case 68:
-#line 674 "par.y"
+#line 660 "par.y"
     { (yyval.sem) = makeLeafSem((yyvsp[(1) - (1)].str), TYPE_FLOAT, err); ;}
     break;
 
   case 69:
-#line 675 "par.y"
+#line 661 "par.y"
     { (yyval.sem) = makeLeafSem((yyvsp[(1) - (1)].str), TYPE_STRING, err); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 2461 "par.tab.c"
+#line 2447 "par.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2671,7 +2657,7 @@ yyreturn:
 }
 
 
-#line 678 "par.y"
+#line 664 "par.y"
 
 
 void yyerror(const char *s) {
@@ -2681,9 +2667,9 @@ void yyerror(const char *s) {
 }
 
 int main(void) {
-    yyin = fopen("input1", "r");
+    yyin = fopen("input.txt", "r");
     if (!yyin) {
-        printf("Error: Could not open file named 'input1'\n");
+        printf("Error: Could not open file named 'input.txt'\n");
         return 1;
     }
 

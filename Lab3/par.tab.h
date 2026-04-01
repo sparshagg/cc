@@ -116,7 +116,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 408 "par.y"
+#line 394 "par.y"
 {
     char *str;
     SemVal sem;

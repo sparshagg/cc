@@ -548,10 +548,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   101,   101,   112,   113,   116,   116,   116,   117,   117,
-     117,   120,   123,   126,   126,   129,   132,   135,   136,   139,
-     142,   143,   144,   145,   146,   147,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,   158,   159
+       0,   102,   102,   113,   114,   117,   117,   117,   118,   118,
+     118,   121,   124,   127,   127,   130,   133,   136,   137,   140,
+     143,   144,   145,   146,   147,   148,   149,   150,   151,   152,
+     153,   154,   155,   156,   157,   158,   159,   160
 };
 #endif
 
@@ -1518,7 +1518,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 101 "par.y"
+#line 102 "par.y"
     { 
         printf("\n--- PARSE TREE ---\n");
         printTree((yyvsp[(1) - (1)].node), 0);
@@ -1531,177 +1531,177 @@ yyreduce:
     break;
 
   case 3:
-#line 112 "par.y"
+#line 113 "par.y"
     { (yyval.node) = makeNode("StmtList", (yyvsp[(1) - (2)].node), (yyvsp[(2) - (2)].node), NULL); ;}
     break;
 
   case 4:
-#line 113 "par.y"
+#line 114 "par.y"
     { (yyval.node) = NULL; ;}
     break;
 
   case 5:
-#line 116 "par.y"
+#line 117 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 6:
-#line 116 "par.y"
+#line 117 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 7:
-#line 116 "par.y"
+#line 117 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 8:
-#line 117 "par.y"
+#line 118 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 9:
-#line 117 "par.y"
+#line 118 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 10:
-#line 117 "par.y"
+#line 118 "par.y"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 11:
-#line 120 "par.y"
+#line 121 "par.y"
     { (yyval.node) = makeNode("Block", (yyvsp[(2) - (3)].node), NULL, NULL); ;}
     break;
 
   case 12:
-#line 123 "par.y"
+#line 124 "par.y"
     { (yyval.node) = makeNode("Decl", (yyvsp[(1) - (3)].node), makeLeaf((yyvsp[(2) - (3)].str)), NULL); ;}
     break;
 
   case 13:
-#line 126 "par.y"
+#line 127 "par.y"
     { (yyval.node) = makeLeaf("int"); ;}
     break;
 
   case 14:
-#line 126 "par.y"
+#line 127 "par.y"
     { (yyval.node) = makeLeaf("float"); ;}
     break;
 
   case 15:
-#line 129 "par.y"
+#line 130 "par.y"
     { (yyval.node) = makeNode("Asgn(=)", makeLeaf((yyvsp[(1) - (4)].str)), (yyvsp[(3) - (4)].node), NULL); ;}
     break;
 
   case 16:
-#line 132 "par.y"
+#line 133 "par.y"
     { (yyval.node) = makeNode("Print", makeLeaf((yyvsp[(3) - (5)].str)), NULL, NULL); ;}
     break;
 
   case 17:
-#line 135 "par.y"
+#line 136 "par.y"
     { (yyval.node) = makeNode("If", (yyvsp[(3) - (5)].node), (yyvsp[(5) - (5)].node), NULL); ;}
     break;
 
   case 18:
-#line 136 "par.y"
+#line 137 "par.y"
     { (yyval.node) = makeNode("If-Else", (yyvsp[(3) - (7)].node), (yyvsp[(5) - (7)].node), (yyvsp[(7) - (7)].node)); ;}
     break;
 
   case 19:
-#line 139 "par.y"
+#line 140 "par.y"
     { (yyval.node) = makeNode("While", (yyvsp[(3) - (5)].node), (yyvsp[(5) - (5)].node), NULL); ;}
     break;
 
   case 20:
-#line 142 "par.y"
+#line 143 "par.y"
     { (yyval.node) = makeNode("||", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 21:
-#line 143 "par.y"
+#line 144 "par.y"
     { (yyval.node) = makeNode("&&", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 22:
-#line 144 "par.y"
+#line 145 "par.y"
     { (yyval.node) = makeNode("==", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 23:
-#line 145 "par.y"
+#line 146 "par.y"
     { (yyval.node) = makeNode("!=", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 24:
-#line 146 "par.y"
+#line 147 "par.y"
     { (yyval.node) = makeNode("<", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 25:
-#line 147 "par.y"
+#line 148 "par.y"
     { (yyval.node) = makeNode(">", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 26:
-#line 148 "par.y"
+#line 149 "par.y"
     { (yyval.node) = makeNode("<=", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 27:
-#line 149 "par.y"
+#line 150 "par.y"
     { (yyval.node) = makeNode(">=", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 28:
-#line 150 "par.y"
+#line 151 "par.y"
     { (yyval.node) = makeNode("+", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 29:
-#line 151 "par.y"
+#line 152 "par.y"
     { (yyval.node) = makeNode("-", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 30:
-#line 152 "par.y"
+#line 153 "par.y"
     { (yyval.node) = makeNode("*", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 31:
-#line 153 "par.y"
+#line 154 "par.y"
     { (yyval.node) = makeNode("/", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 32:
-#line 154 "par.y"
+#line 155 "par.y"
     { (yyval.node) = makeNode("%", (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node), NULL); ;}
     break;
 
   case 33:
-#line 155 "par.y"
+#line 156 "par.y"
     { (yyval.node) = makeNode("!", (yyvsp[(3) - (4)].node), NULL, NULL); ;}
     break;
 
   case 34:
-#line 156 "par.y"
+#line 157 "par.y"
     { (yyval.node) = (yyvsp[(2) - (3)].node); ;}
     break;
 
   case 35:
-#line 157 "par.y"
-    { (yyval.node) = makeLeaf((yyvsp[(1) - (1)].str)); ;}
-    break;
-
-  case 36:
 #line 158 "par.y"
     { (yyval.node) = makeLeaf((yyvsp[(1) - (1)].str)); ;}
     break;
 
-  case 37:
+  case 36:
 #line 159 "par.y"
+    { (yyval.node) = makeLeaf((yyvsp[(1) - (1)].str)); ;}
+    break;
+
+  case 37:
+#line 160 "par.y"
     { (yyval.node) = makeLeaf((yyvsp[(1) - (1)].str)); ;}
     break;
 
@@ -1921,7 +1921,7 @@ yyreturn:
 }
 
 
-#line 162 "par.y"
+#line 163 "par.y"
 
 
 void yyerror(const char *s) {
@@ -1929,7 +1929,7 @@ void yyerror(const char *s) {
 }
 
 int main() {
-    yyin = fopen("input", "r");
+    yyin = fopen("input.txt", "r");
     if (!yyin) {
         printf("Error: Could not open file named 'input'\n");
         return 1;
