@@ -1,0 +1,2 @@
+[!] Compilation aborted due to syntax or semantic errors.
+[!] Symbol Table memory has been wiped to prevent state corruption.

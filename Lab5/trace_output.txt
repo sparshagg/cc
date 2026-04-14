@@ -1,0 +1,539 @@
+=== SHIFT-REDUCE LALR PARSER TRACE ===
+
+Starting parse
+Entering state 0
+Stack now 0
+Reducing stack by rule 1 (line 75):
+-> $$ = nterm $@1 ()
+Entering state 2
+Stack now 0 2
+Reading a token
+Next token is token INT ()
+Shifting token INT ()
+Entering state 5
+Stack now 0 2 5
+Reducing stack by rule 15 (line 99):
+   $1 = token INT ()
+-> $$ = nterm T ()
+Entering state 16
+Stack now 0 2 16
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 28
+Stack now 0 2 16 28
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 41
+Stack now 0 2 16 28 41
+Reducing stack by rule 14 (line 90):
+   $1 = nterm T ()
+   $2 = token ID ()
+   $3 = token SEMI ()
+-> $$ = nterm D ()
+Entering state 15
+Stack now 0 2 15
+Reducing stack by rule 6 (line 82):
+   $1 = nterm D ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13
+Reading a token
+Next token is token INT ()
+Shifting token INT ()
+Entering state 5
+Stack now 0 2 13 5
+Reducing stack by rule 15 (line 99):
+   $1 = token INT ()
+-> $$ = nterm T ()
+Entering state 16
+Stack now 0 2 13 16
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 28
+Stack now 0 2 13 16 28
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 41
+Stack now 0 2 13 16 28 41
+Reducing stack by rule 14 (line 90):
+   $1 = nterm T ()
+   $2 = token ID ()
+   $3 = token SEMI ()
+-> $$ = nterm D ()
+Entering state 15
+Stack now 0 2 13 15
+Reducing stack by rule 6 (line 82):
+   $1 = nterm D ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13
+Reading a token
+Next token is token FLOAT ()
+Shifting token FLOAT ()
+Entering state 6
+Stack now 0 2 13 13 6
+Reducing stack by rule 16 (line 99):
+   $1 = token FLOAT ()
+-> $$ = nterm T ()
+Entering state 16
+Stack now 0 2 13 13 16
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 28
+Stack now 0 2 13 13 16 28
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 41
+Stack now 0 2 13 13 16 28 41
+Reducing stack by rule 14 (line 90):
+   $1 = nterm T ()
+   $2 = token ID ()
+   $3 = token SEMI ()
+-> $$ = nterm D ()
+Entering state 15
+Stack now 0 2 13 13 15
+Reducing stack by rule 6 (line 82):
+   $1 = nterm D ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13
+Reading a token
+Next token is token INT ()
+Shifting token INT ()
+Entering state 5
+Stack now 0 2 13 13 13 5
+Reducing stack by rule 15 (line 99):
+   $1 = token INT ()
+-> $$ = nterm T ()
+Entering state 16
+Stack now 0 2 13 13 13 16
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 28
+Stack now 0 2 13 13 13 16 28
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 41
+Stack now 0 2 13 13 13 16 28 41
+Reducing stack by rule 14 (line 90):
+   $1 = nterm T ()
+   $2 = token ID ()
+   $3 = token SEMI ()
+-> $$ = nterm D ()
+Entering state 15
+Stack now 0 2 13 13 13 15
+Reducing stack by rule 6 (line 82):
+   $1 = nterm D ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 10
+Stack now 0 2 13 13 13 13 10
+Reading a token
+Next token is token ASGN ()
+Shifting token ASGN ()
+Entering state 25
+Stack now 0 2 13 13 13 13 10 25
+Reading a token
+Next token is token FCON ()
+Shifting token FCON ()
+Entering state 32
+Stack now 0 2 13 13 13 13 10 25 32
+Reducing stack by rule 40 (line 199):
+   $1 = token FCON ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 10 25 39
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 60
+Stack now 0 2 13 13 13 13 10 25 39 60
+Reducing stack by rule 17 (line 102):
+   $1 = token ID ()
+   $2 = token ASGN ()
+   $3 = nterm E ()
+   $4 = token SEMI ()
+-> $$ = nterm A ()
+Entering state 17
+Stack now 0 2 13 13 13 13 17
+Reducing stack by rule 7 (line 82):
+   $1 = nterm A ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 10
+Stack now 0 2 13 13 13 13 13 10
+Reading a token
+Next token is token ASGN ()
+Shifting token ASGN ()
+Entering state 25
+Stack now 0 2 13 13 13 13 13 10 25
+Reading a token
+Next token is token ICON ()
+Shifting token ICON ()
+Entering state 31
+Stack now 0 2 13 13 13 13 13 10 25 31
+Reducing stack by rule 39 (line 198):
+   $1 = token ICON ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 13 10 25 39
+Reading a token
+Next token is token MOD ()
+Shifting token MOD ()
+Entering state 48
+Stack now 0 2 13 13 13 13 13 10 25 39 48
+Reading a token
+Next token is token FCON ()
+Shifting token FCON ()
+Entering state 32
+Stack now 0 2 13 13 13 13 13 10 25 39 48 32
+Reducing stack by rule 40 (line 199):
+   $1 = token FCON ()
+-> $$ = nterm E ()
+Entering state 68
+Stack now 0 2 13 13 13 13 13 10 25 39 48 68
+Reducing stack by rule 35 (line 173):
+   $1 = nterm E ()
+   $2 = token MOD ()
+   $3 = nterm E ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 13 10 25 39
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 60
+Stack now 0 2 13 13 13 13 13 10 25 39 60
+Reducing stack by rule 17 (line 102):
+   $1 = token ID ()
+   $2 = token ASGN ()
+   $3 = nterm E ()
+   $4 = token SEMI ()
+-> $$ = nterm A ()
+Entering state 17
+Stack now 0 2 13 13 13 13 13 17
+Reducing stack by rule 7 (line 82):
+   $1 = nterm A ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13
+Reading a token
+Next token is token INT ()
+Shifting token INT ()
+Entering state 5
+Stack now 0 2 13 13 13 13 13 13 5
+Reducing stack by rule 15 (line 99):
+   $1 = token INT ()
+-> $$ = nterm T ()
+Entering state 16
+Stack now 0 2 13 13 13 13 13 13 16
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 28
+Stack now 0 2 13 13 13 13 13 13 16 28
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 41
+Stack now 0 2 13 13 13 13 13 13 16 28 41
+Reducing stack by rule 14 (line 90):
+   $1 = nterm T ()
+   $2 = token ID ()
+   $3 = token SEMI ()
+-> $$ = nterm D ()
+Entering state 15
+Stack now 0 2 13 13 13 13 13 13 15
+Reducing stack by rule 6 (line 82):
+   $1 = nterm D ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13 13
+Reading a token
+Next token is token PRINT ()
+Shifting token PRINT ()
+Entering state 9
+Stack now 0 2 13 13 13 13 13 13 13 9
+Reading a token
+Next token is token LP ()
+Shifting token LP ()
+Entering state 24
+Stack now 0 2 13 13 13 13 13 13 13 9 24
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 37
+Stack now 0 2 13 13 13 13 13 13 13 9 24 37
+Reducing stack by rule 18 (line 123):
+   $1 = token ID ()
+-> $$ = nterm PrntID ()
+Entering state 38
+Stack now 0 2 13 13 13 13 13 13 13 9 24 38
+Reading a token
+Next token is token RP ()
+Shifting token RP ()
+Entering state 59
+Stack now 0 2 13 13 13 13 13 13 13 9 24 38 59
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 79
+Stack now 0 2 13 13 13 13 13 13 13 9 24 38 59 79
+Reducing stack by rule 19 (line 135):
+   $1 = token PRINT ()
+   $2 = token LP ()
+   $3 = nterm PrntID ()
+   $4 = token RP ()
+   $5 = token SEMI ()
+-> $$ = nterm Pr ()
+Entering state 18
+Stack now 0 2 13 13 13 13 13 13 13 18
+Reducing stack by rule 10 (line 82):
+   $1 = nterm Pr ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13 13 13
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 10
+Stack now 0 2 13 13 13 13 13 13 13 13 10
+Reading a token
+Next token is token ASGN ()
+Shifting token ASGN ()
+Entering state 25
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 30
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 30
+Reducing stack by rule 38 (line 183):
+   $1 = token ID ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39
+Reading a token
+Next token is token PLUS ()
+Shifting token PLUS ()
+Entering state 44
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39 44
+Reading a token
+Next token is token ICON ()
+Shifting token ICON ()
+Entering state 31
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39 44 31
+Reducing stack by rule 39 (line 198):
+   $1 = token ICON ()
+-> $$ = nterm E ()
+Entering state 64
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39 44 64
+Reading a token
+Next token is token SEMI ()
+Reducing stack by rule 31 (line 152):
+   $1 = nterm E ()
+   $2 = token PLUS ()
+   $3 = nterm E ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 60
+Stack now 0 2 13 13 13 13 13 13 13 13 10 25 39 60
+Reducing stack by rule 17 (line 102):
+   $1 = token ID ()
+   $2 = token ASGN ()
+   $3 = nterm E ()
+   $4 = token SEMI ()
+-> $$ = nterm A ()
+Entering state 17
+Stack now 0 2 13 13 13 13 13 13 13 13 17
+Reducing stack by rule 7 (line 82):
+   $1 = nterm A ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13 13 13 13
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 10
+Stack now 0 2 13 13 13 13 13 13 13 13 13 10
+Reading a token
+Next token is token ASGN ()
+Shifting token ASGN ()
+Entering state 25
+Stack now 0 2 13 13 13 13 13 13 13 13 13 10 25
+Reading a token
+Next token is token ICON ()
+Shifting token ICON ()
+Entering state 31
+Stack now 0 2 13 13 13 13 13 13 13 13 13 10 25 31
+Reducing stack by rule 39 (line 198):
+   $1 = token ICON ()
+-> $$ = nterm E ()
+Entering state 39
+Stack now 0 2 13 13 13 13 13 13 13 13 13 10 25 39
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 60
+Stack now 0 2 13 13 13 13 13 13 13 13 13 10 25 39 60
+Reducing stack by rule 17 (line 102):
+   $1 = token ID ()
+   $2 = token ASGN ()
+   $3 = nterm E ()
+   $4 = token SEMI ()
+-> $$ = nterm A ()
+Entering state 17
+Stack now 0 2 13 13 13 13 13 13 13 13 13 17
+Reducing stack by rule 7 (line 82):
+   $1 = nterm A ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13
+Reading a token
+Next token is token PRINT ()
+Shifting token PRINT ()
+Entering state 9
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9
+Reading a token
+Next token is token LP ()
+Shifting token LP ()
+Entering state 24
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9 24
+Reading a token
+Next token is token ID ()
+Shifting token ID ()
+Entering state 37
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9 24 37
+Reducing stack by rule 18 (line 123):
+   $1 = token ID ()
+-> $$ = nterm PrntID ()
+Entering state 38
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9 24 38
+Reading a token
+Next token is token RP ()
+Shifting token RP ()
+Entering state 59
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9 24 38 59
+Reading a token
+Next token is token SEMI ()
+Shifting token SEMI ()
+Entering state 79
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 9 24 38 59 79
+Reducing stack by rule 19 (line 135):
+   $1 = token PRINT ()
+   $2 = token LP ()
+   $3 = nterm PrntID ()
+   $4 = token RP ()
+   $5 = token SEMI ()
+-> $$ = nterm Pr ()
+Entering state 18
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 18
+Reducing stack by rule 10 (line 82):
+   $1 = nterm Pr ()
+-> $$ = nterm S ()
+Entering state 13
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 13
+Reading a token
+Now at end of input.
+Reducing stack by rule 5 (line 79):
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 27
+Stack now 0 2 13 27
+Reducing stack by rule 3 (line 77):
+   $1 = nterm S ()
+   $2 = nterm SL ()
+-> $$ = nterm SL ()
+Entering state 12
+Stack now 0 2 12
+Reducing stack by rule 2 (line 75):
+   $1 = nterm $@1 ()
+   $2 = nterm SL ()
+-> $$ = nterm P ()
+Entering state 1
+Stack now 0 1
+Now at end of input.
+Shifting token "end of file" ()
+Entering state 3
+Stack now 0 1 3
+Stack now 0 1 3
+Cleanup: popping token "end of file" ()
+Cleanup: popping nterm P ()

@@ -1,0 +1,11 @@
+=== COMPILATION ERROR LOG ===
+
+Line 2: [!] SEMANTIC ERROR: Redeclaration of 'x'.
+Line 7: [!] SEMANTIC ERROR: Type mismatch. Cannot assign 'float' to 'z' (type 'int').
+Line 8: [!] SEMANTIC ERROR: Modulo '%' cannot be applied to floats.
+Line 11: [!] SEMANTIC ERROR: Uninitialized variable 'a' used in print.
+Line 12: [!] SEMANTIC ERROR: Uninitialized variable 'a' used in math.
+
+=== SUMMARY ===
+- Syntax Errors: 0
+- Semantic Errors: 5
