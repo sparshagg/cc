@@ -1,3 +1,4 @@
+// symtab.h
 #ifndef SYMTAB_H
 #define SYMTAB_H
 
@@ -6,7 +7,8 @@ typedef struct sym_record {
     char type[20];
     int scope;
     int line;
-    int is_initialized; // NEW: Tracks if it has a value!
+    int is_initialized;
+    int offset;
     struct sym_record *next;
 } sym_record;
 

@@ -1,3 +1,4 @@
+// symtab.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +7,7 @@
 #define TABLE_SIZE 100
 
 sym_record* symtab[TABLE_SIZE];
+int current_memory_offset = 0;
 
 void init_symtab() {
     for(int i = 0; i < TABLE_SIZE; i++) symtab[i] = NULL;
@@ -24,7 +26,7 @@ int insert_sym(char *name, char *type, int scope, int line) {
     
     while (current != NULL) {
         if (strcmp(current->name, name) == 0 && current->scope == scope) {
-            return 0; // Redeclaration error
+            return 0;
         }
         current = current->next;
     }
@@ -34,7 +36,12 @@ int insert_sym(char *name, char *type, int scope, int line) {
     strcpy(new_node->type, type);
     new_node->scope = scope;
     new_node->line = line;
-    new_node->is_initialized = 0; // NEW: Starts with no value
+    new_node->is_initialized = 0;
+    
+    new_node->offset = current_memory_offset;
+    int size = (strcmp(type, "float") == 0) ? 8 : 4;
+    current_memory_offset += size;
+
     new_node->next = symtab[index];
     symtab[index] = new_node;
     return 1;
@@ -79,16 +86,16 @@ void delete_scope(int scope) {
 
 void print_symtab() {
     printf("\n=== SEMANTIC SYMBOL TABLE ===\n");
-    printf("%-15s | %-10s | %-6s | %-6s | %-12s\n", "Variable Name", "Data Type", "Scope", "Line", "Status");
-    printf("----------------------------------------------------------------\n");
+    printf("%-15s | %-10s | %-6s | %-6s | %-8s | %-12s\n", "Variable Name", "Data Type", "Scope", "Line", "Offset", "Status");
+    printf("--------------------------------------------------------------------------\n");
     for (int i = 0; i < TABLE_SIZE; i++) {
         sym_record *current = symtab[i];
         while (current != NULL) {
             char status[20];
             strcpy(status, current->is_initialized ? "Initialized" : "Empty");
-            printf("%-15s | %-10s | %-6d | %-6d | %-12s\n", current->name, current->type, current->scope, current->line, status);
+            printf("%-15s | %-10s | %-6d | %-6d | %-8d | %-12s\n", current->name, current->type, current->scope, current->line, current->offset, status);
             current = current->next;
         }
     }
-    printf("================================================================\n\n");
+    printf("==========================================================================\n\n");
 }
