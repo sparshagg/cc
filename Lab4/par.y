@@ -157,7 +157,7 @@ void yyerror(const char *msg) {
 int main() {
     yyin = fopen("input.txt", "r");
     if (!yyin) {
-        printf("Error: Cannot open 'input' file.\n");
+        printf("Error: Cannot open 'input.txt' file.\n");
         return 1;
     }
     

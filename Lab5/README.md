@@ -30,7 +30,7 @@ The implementation supports:
 - `lex.l`: lexer
 - `symtab.h`: symbol table interface
 - `symtab.c`: symbol table implementation
-- `input`: input program
+- `input.txt`: input program
 - `errors.txt`: generated compilation error log
 - `symbol_table.txt`: generated symbol table snapshot
 - `tree_output.txt`: generated AST output

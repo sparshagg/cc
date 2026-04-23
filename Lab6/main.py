@@ -223,10 +223,10 @@ def generate_ll1_file(test_code):
 if __name__ == "__main__":
     build_and_run_c_compiler()
     try:
-        with open('input', 'r') as file:
+        with open('input.txt', 'r') as file:
             test_code = file.read()
     except FileNotFoundError:
-        print("\n[!] ERROR: Could not find the 'input' file.")
+        print("\n[!] ERROR: Could not find the 'input.txt' file.")
         sys.exit(1)
     generate_ll1_file(test_code)
     print("="*65)

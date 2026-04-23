@@ -223,9 +223,9 @@ void yyerror(const char *msg) {
 }
 
 int main() {
-    yyin = fopen("input", "r");
+    yyin = fopen("input.txt", "r");
     if (!yyin) {
-        printf("Error: Could not open the 'input' file.\n");
+        printf("Error: Could not open the 'input.txt' file.\n");
         return 1;
     }
     

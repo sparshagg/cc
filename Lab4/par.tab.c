@@ -201,7 +201,7 @@ void pRMD(N *n) {
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 
 /* Enabling verbose error messages.  */
@@ -1961,7 +1961,7 @@ void yyerror(const char *msg) {
 int main() {
     yyin = fopen("input.txt", "r");
     if (!yyin) {
-        printf("Error: Cannot open 'input' file.\n");
+        printf("Error: Cannot open 'input.txt' file.\n");
         return 1;
     }
     
@@ -1983,3 +1983,4 @@ int main() {
     
     return 0;
 }
+

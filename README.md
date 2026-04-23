@@ -32,16 +32,16 @@ The labs build on each other:
 - `Lab4/lex.l`: Flex lexer for the shift-reduce parser
 - `Lab4/par.y`: Bison grammar for shift-reduce parsing
 - `Lab4/ll1.py`: LL(1) parser with FIRST/FOLLOW computation and stack trace
-- `Lab4/input`: Evaluation program used by both parser implementations
+- `Lab4/input.txt`: Evaluation program used by both parser implementations
 - `Lab5/main.py`: Driver that builds and runs the parser, semantic analyzer, and LL(1) theory output
 - `Lab5/symtab.c`: Symbol table implementation with scope and offset handling
 - `Lab5/symtab.h`: Symbol table interface
-- `Lab5/input`: Evaluation program used for semantic analysis
+- `Lab5/input.txt`: Evaluation program used for semantic analysis
 - `Lab6/main.py`: Driver that builds and runs the full compiler pipeline
 - `Lab6/symtab.c`: Symbol table implementation
 - `Lab6/tac.c`: TAC generation logic
 - `Lab6/tac.h`: TAC interface and quadruple structure
-- `Lab6/input`: Evaluation program used for TAC generation
+- `Lab6/input.txt`: Evaluation program used for TAC generation
 
 ## Prerequisites
 
@@ -130,8 +130,7 @@ python3 main.py
 ## Notes
 
 - Run each lab from inside its own directory because the programs read `input.txt` from the current working directory.
-- `Lab4` reads from a file named `input`, not `input.txt`.
-- `Lab5` and `Lab6` also read from a file named `input`.
+- `Lab4`, `Lab5`, and `Lab6` read from `input.txt`.
 - On this machine, the commands above work without linking `-lfl`.
 - `Lab2` is the main midsem syntax-analysis demo because it parses the official evaluation program.
 - `Lab3` is useful for showing syntax-error reporting and the semantic-analysis extension.

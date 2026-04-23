@@ -34,7 +34,7 @@ It handles:
 - `symtab.h`: symbol table interface
 - `tac.c`: TAC generation logic
 - `tac.h`: quadruple structure and TAC interface
-- `input`: input program
+- `input.txt`: input program
 - `quadruples.txt`: generated TAC output
 - `errors.txt`: generated error log
 - `symbol_table.txt`: generated symbol table snapshot

@@ -24,7 +24,7 @@ This lab demonstrates:
 - `lex.l`: Flex lexer used by the shift-reduce parser
 - `par.y`: Bison grammar for shift-reduce parsing
 - `ll1.py`: LL(1) parser implementation
-- `input`: Evaluation program used as parser input
+- `input.txt`: Evaluation program used as parser input
 - `trace_output.txt`: Sample shift-reduce trace output
 - `tree_output.txt`: Sample parse tree, LMD, and RMD output
 
@@ -51,7 +51,7 @@ gcc par.tab.c lex.yy.c -o parser
 Note:
 
 - `-t` is required with `bison` because `yydebug = 1` is enabled in `par.y`
-- this lab reads from `input`, not `input.txt`
+- this lab reads from `input.txt`
 
 ## LL(1) Parser
 

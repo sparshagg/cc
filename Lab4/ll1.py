@@ -190,8 +190,8 @@ if __name__ == "__main__":
         with open('input.txt', 'r') as file:
             test_code = file.read()
     except FileNotFoundError:
-        print("\n[!] ERROR: Could not find the 'input' file.")
+        print("\n[!] ERROR: Could not find the 'input.txt' file.")
         sys.exit(1)
         
-    print(f"\nTarget Code Parsed from 'input':\n{test_code.strip()}")
+    print(f"\nTarget Code Parsed from 'input.txt':\n{test_code.strip()}")
     parse_ll1(test_code)

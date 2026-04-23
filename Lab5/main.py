@@ -221,10 +221,10 @@ if __name__ == "__main__":
     
     
     try:
-        with open('input', 'r') as file:
+        with open('input.txt', 'r') as file:
             test_code = file.read()
     except FileNotFoundError:
-        print("\n[!] ERROR: Could not find the 'input' file.")
+        print("\n[!] ERROR: Could not find the 'input.txt' file.")
         sys.exit(1)
         
   
