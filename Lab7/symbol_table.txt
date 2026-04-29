@@ -1,0 +1,10 @@
+
+=== SEMANTIC SYMBOL TABLE ===
+Variable Name   | Data Type  | Scope  | Line   | Status      
+----------------------------------------------------------------
+sum             | int        | 0      | 3      | Initialized 
+avg             | float      | 0      | 4      | Initialized 
+a               | int        | 0      | 1      | Initialized 
+b               | int        | 0      | 2      | Initialized 
+================================================================
+

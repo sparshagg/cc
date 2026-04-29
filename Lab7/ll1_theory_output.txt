@@ -1,0 +1,380 @@
+========================================
+1. COMPUTED FIRST SETS
+========================================
+FIRST(PROG      ) = {'float', 'int', '{', 'id', 'while', 'eps', 'if', 'print'}
+FIRST(SLIST     ) = {'float', 'int', 'if', 'id', 'while', 'eps', '{', 'print'}
+FIRST(STMT      ) = {'float', 'int', '{', 'id', 'while', 'if', 'print'}
+FIRST(DECL      ) = {'int', 'float'}
+FIRST(TYP       ) = {'int', 'float'}
+FIRST(ASGN      ) = {'id'}
+FIRST(WHL       ) = {'while'}
+FIRST(IF_STMT   ) = {'if'}
+FIRST(ELSEPART  ) = {'else', 'eps'}
+FIRST(PRNT      ) = {'print'}
+FIRST(BLK       ) = {'{'}
+FIRST(EXPR      ) = {'(', 'id', '!', 'num'}
+FIRST(EXPR_PRIME) = {'>', 'eps', '<', '>=', '&&', '<=', '==', '-', '||', '+', '!='}
+FIRST(TERM      ) = {'(', 'id', '!', 'num'}
+FIRST(TERM_PRIME) = {'*', '/', 'eps', '%'}
+FIRST(FACTOR    ) = {'(', 'id', '!', 'num'}
+
+========================================
+2. COMPUTED FOLLOW SETS
+========================================
+FOLLOW(PROG     ) = {'$'}
+FOLLOW(SLIST    ) = {'$', '}'}
+FOLLOW(STMT     ) = {'float', '$', 'int', '}', '{', 'id', 'while', 'if', 'print'}
+FOLLOW(DECL     ) = {'float', '$', 'int', '}', 'if', 'id', 'while', '{', 'print'}
+FOLLOW(TYP      ) = {'id'}
+FOLLOW(ASGN     ) = {'float', '$', 'int', '}', 'if', 'id', 'while', '{', 'print'}
+FOLLOW(WHL      ) = {'float', '$', 'int', '}', 'if', 'id', 'while', '{', 'print'}
+FOLLOW(IF_STMT  ) = {'float', '$', 'int', '}', 'if', 'id', 'while', '{', 'print'}
+FOLLOW(ELSEPART ) = {'float', '$', 'int', '}', '{', 'id', 'while', 'if', 'print'}
+FOLLOW(PRNT     ) = {'float', '$', 'int', '}', 'if', 'id', 'while', '{', 'print'}
+FOLLOW(BLK      ) = {'float', '$', 'int', '}', 'if', 'id', 'while', 'else', '{', 'print'}
+FOLLOW(EXPR     ) = {';', ')'}
+FOLLOW(EXPR_PRIME) = {';', ')'}
+FOLLOW(TERM     ) = {'>', '>=', '<', '&&', '<=', '==', ')', '-', '||', '+', ';', '!='}
+FOLLOW(TERM_PRIME) = {'>', '<', '>=', '&&', '<=', '==', ')', '-', '||', '+', ';', '!='}
+FOLLOW(FACTOR   ) = {'>', '/', '%', '>=', '<', '&&', '<=', '==', '*', ')', '-', '||', '+', ';', '!='}
+
+================================================================================
+3. LL(1) PARSING STACK TRACE
+================================================================================
+STACK                               | INPUT STREAM                   | ACTION
+--------------------------------------------------------------------------------
+$ PROG                              | int id ; int id ; ...          | RULE: PROG -> SLIST
+$ SLIST                             | int id ; int id ; ...          | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | int id ; int id ; ...          | RULE: STMT -> DECL
+$ SLIST DECL                        | int id ; int id ; ...          | RULE: DECL -> TYP id ;
+$ SLIST ; id TYP                    | int id ; int id ; ...          | RULE: TYP -> int
+$ SLIST ; id int                    | int id ; int id ; ...          | MATCH 'int'
+$ SLIST ; id                        | id ; int id ; int ...          | MATCH 'id'
+$ SLIST ;                           | ; int id ; int id ...          | MATCH ';'
+$ SLIST                             | int id ; int id ; ...          | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | int id ; int id ; ...          | RULE: STMT -> DECL
+$ SLIST DECL                        | int id ; int id ; ...          | RULE: DECL -> TYP id ;
+$ SLIST ; id TYP                    | int id ; int id ; ...          | RULE: TYP -> int
+$ SLIST ; id int                    | int id ; int id ; ...          | MATCH 'int'
+$ SLIST ; id                        | id ; int id ; float ...        | MATCH 'id'
+$ SLIST ;                           | ; int id ; float id ...        | MATCH ';'
+$ SLIST                             | int id ; float id ; ...        | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | int id ; float id ; ...        | RULE: STMT -> DECL
+$ SLIST DECL                        | int id ; float id ; ...        | RULE: DECL -> TYP id ;
+$ SLIST ; id TYP                    | int id ; float id ; ...        | RULE: TYP -> int
+$ SLIST ; id int                    | int id ; float id ; ...        | MATCH 'int'
+$ SLIST ; id                        | id ; float id ; id ...         | MATCH 'id'
+$ SLIST ;                           | ; float id ; id = ...          | MATCH ';'
+$ SLIST                             | float id ; id = num ...        | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | float id ; id = num ...        | RULE: STMT -> DECL
+$ SLIST DECL                        | float id ; id = num ...        | RULE: DECL -> TYP id ;
+$ SLIST ; id TYP                    | float id ; id = num ...        | RULE: TYP -> float
+$ SLIST ; id float                  | float id ; id = num ...        | MATCH 'float'
+$ SLIST ; id                        | id ; id = num * ...            | MATCH 'id'
+$ SLIST ;                           | ; id = num * ( ...             | MATCH ';'
+$ SLIST                             | id = num * ( num ...           | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | id = num * ( num ...           | RULE: STMT -> ASGN
+$ SLIST ASGN                        | id = num * ( num ...           | RULE: ASGN -> id = EXPR ;
+$ SLIST ; EXPR = id                 | id = num * ( num ...           | MATCH 'id'
+$ SLIST ; EXPR =                    | = num * ( num + ...            | MATCH '='
+$ SLIST ; EXPR                      | num * ( num + num ...          | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM           | num * ( num + num ...          | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num * ( num + num ...          | RULE: FACTOR -> num
+$ SLIST ; EXPR_PRIME TERM_PRIME num | num * ( num + num ...          | MATCH 'num'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | * ( num + num ) ...            | RULE: TERM_PRIME -> * FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR * | * ( num + num ) ...            | MATCH '*'
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | ( num + num ) ; ...            | RULE: FACTOR -> ( EXPR )
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR ( | ( num + num ) ; ...            | MATCH '('
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR | num + num ) ; id ...           | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | num + num ) ; id ...           | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num + num ) ; id ...           | RULE: FACTOR -> num
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num + num ) ; id ...           | MATCH 'num'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | + num ) ; id = ...             | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME | + num ) ; id = ...             | RULE: EXPR_PRIME -> + TERM EXPR_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM + | + num ) ; id = ...             | MATCH '+'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | num ) ; id = num ...           | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num ) ; id = num ...           | RULE: FACTOR -> num
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num ) ; id = num ...           | MATCH 'num'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | ) ; id = num ; ...             | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME | ) ; id = num ; ...             | RULE: EXPR_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME )   | ) ; id = num ; ...             | MATCH ')'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | ; id = num ; id ...            | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME                | ; id = num ; id ...            | RULE: EXPR_PRIME -> eps
+$ SLIST ;                           | ; id = num ; id ...            | MATCH ';'
+$ SLIST                             | id = num ; id = ...            | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | id = num ; id = ...            | RULE: STMT -> ASGN
+$ SLIST ASGN                        | id = num ; id = ...            | RULE: ASGN -> id = EXPR ;
+$ SLIST ; EXPR = id                 | id = num ; id = ...            | MATCH 'id'
+$ SLIST ; EXPR =                    | = num ; id = num ...           | MATCH '='
+$ SLIST ; EXPR                      | num ; id = num ; ...           | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM           | num ; id = num ; ...           | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num ; id = num ; ...           | RULE: FACTOR -> num
+$ SLIST ; EXPR_PRIME TERM_PRIME num | num ; id = num ; ...           | MATCH 'num'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | ; id = num ; while ...         | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME                | ; id = num ; while ...         | RULE: EXPR_PRIME -> eps
+$ SLIST ;                           | ; id = num ; while ...         | MATCH ';'
+$ SLIST                             | id = num ; while ( ...         | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | id = num ; while ( ...         | RULE: STMT -> ASGN
+$ SLIST ASGN                        | id = num ; while ( ...         | RULE: ASGN -> id = EXPR ;
+$ SLIST ; EXPR = id                 | id = num ; while ( ...         | MATCH 'id'
+$ SLIST ; EXPR =                    | = num ; while ( id ...         | MATCH '='
+$ SLIST ; EXPR                      | num ; while ( id < ...         | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM           | num ; while ( id < ...         | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num ; while ( id < ...         | RULE: FACTOR -> num
+$ SLIST ; EXPR_PRIME TERM_PRIME num | num ; while ( id < ...         | MATCH 'num'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | ; while ( id < id ...          | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME                | ; while ( id < id ...          | RULE: EXPR_PRIME -> eps
+$ SLIST ;                           | ; while ( id < id ...          | MATCH ';'
+$ SLIST                             | while ( id < id && ...         | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | while ( id < id && ...         | RULE: STMT -> WHL
+$ SLIST WHL                         | while ( id < id && ...         | RULE: WHL -> while ( EXPR ) BLK
+$ SLIST BLK ) EXPR ( while          | while ( id < id && ...         | MATCH 'while'
+$ SLIST BLK ) EXPR (                | ( id < id && id ...            | MATCH '('
+$ SLIST BLK ) EXPR                  | id < id && id != ...           | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM       | id < id && id != ...           | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME FACTOR | id < id && id != ...           | RULE: FACTOR -> id
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME id | id < id && id != ...           | MATCH 'id'
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME | < id && id != num ...          | RULE: TERM_PRIME -> eps
+$ SLIST BLK ) EXPR_PRIME            | < id && id != num ...          | RULE: EXPR_PRIME -> < TERM EXPR_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM <     | < id && id != num ...          | MATCH '<'
+$ SLIST BLK ) EXPR_PRIME TERM       | id && id != num ) ...          | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME FACTOR | id && id != num ) ...          | RULE: FACTOR -> id
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME id | id && id != num ) ...          | MATCH 'id'
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME | && id != num ) { ...           | RULE: TERM_PRIME -> eps
+$ SLIST BLK ) EXPR_PRIME            | && id != num ) { ...           | RULE: EXPR_PRIME -> && TERM EXPR_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM &&    | && id != num ) { ...           | MATCH '&&'
+$ SLIST BLK ) EXPR_PRIME TERM       | id != num ) { int ...          | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME FACTOR | id != num ) { int ...          | RULE: FACTOR -> id
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME id | id != num ) { int ...          | MATCH 'id'
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME | != num ) { int id ...          | RULE: TERM_PRIME -> eps
+$ SLIST BLK ) EXPR_PRIME            | != num ) { int id ...          | RULE: EXPR_PRIME -> != TERM EXPR_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM !=    | != num ) { int id ...          | MATCH '!='
+$ SLIST BLK ) EXPR_PRIME TERM       | num ) { int id ; ...           | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME FACTOR | num ) { int id ; ...           | RULE: FACTOR -> num
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME num | num ) { int id ; ...           | MATCH 'num'
+$ SLIST BLK ) EXPR_PRIME TERM_PRIME | ) { int id ; id ...            | RULE: TERM_PRIME -> eps
+$ SLIST BLK ) EXPR_PRIME            | ) { int id ; id ...            | RULE: EXPR_PRIME -> eps
+$ SLIST BLK )                       | ) { int id ; id ...            | MATCH ')'
+$ SLIST BLK                         | { int id ; id = ...            | RULE: BLK -> { SLIST }
+$ SLIST } SLIST {                   | { int id ; id = ...            | MATCH '{'
+$ SLIST } SLIST                     | int id ; id = id ...           | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST STMT                | int id ; id = id ...           | RULE: STMT -> DECL
+$ SLIST } SLIST DECL                | int id ; id = id ...           | RULE: DECL -> TYP id ;
+$ SLIST } SLIST ; id TYP            | int id ; id = id ...           | RULE: TYP -> int
+$ SLIST } SLIST ; id int            | int id ; id = id ...           | MATCH 'int'
+$ SLIST } SLIST ; id                | id ; id = id * ...             | MATCH 'id'
+$ SLIST } SLIST ;                   | ; id = id * num ...            | MATCH ';'
+$ SLIST } SLIST                     | id = id * num ; ...            | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST STMT                | id = id * num ; ...            | RULE: STMT -> ASGN
+$ SLIST } SLIST ASGN                | id = id * num ; ...            | RULE: ASGN -> id = EXPR ;
+$ SLIST } SLIST ; EXPR = id         | id = id * num ; ...            | MATCH 'id'
+$ SLIST } SLIST ; EXPR =            | = id * num ; if ...            | MATCH '='
+$ SLIST } SLIST ; EXPR              | id * num ; if ( ...            | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM   | id * num ; if ( ...            | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id * num ; if ( ...            | RULE: FACTOR -> id
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME id | id * num ; if ( ...            | MATCH 'id'
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME | * num ; if ( ( ...             | RULE: TERM_PRIME -> * FACTOR TERM_PRIME
+... SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR * | * num ; if ( ( ...             | MATCH '*'
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num ; if ( ( id ...            | RULE: FACTOR -> num
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME num | num ; if ( ( id ...            | MATCH 'num'
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME | ; if ( ( id % ...              | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST ; EXPR_PRIME        | ; if ( ( id % ...              | RULE: EXPR_PRIME -> eps
+$ SLIST } SLIST ;                   | ; if ( ( id % ...              | MATCH ';'
+$ SLIST } SLIST                     | if ( ( id % num ...            | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST STMT                | if ( ( id % num ...            | RULE: STMT -> IF_STMT
+$ SLIST } SLIST IF_STMT             | if ( ( id % num ...            | RULE: IF_STMT -> if ( EXPR ) BLK ELSEPART
+... } SLIST ELSEPART BLK ) EXPR ( if | if ( ( id % num ...            | MATCH 'if'
+... SLIST } SLIST ELSEPART BLK ) EXPR ( | ( ( id % num == ...            | MATCH '('
+$ SLIST } SLIST ELSEPART BLK ) EXPR | ( id % num == num ...          | RULE: EXPR -> TERM EXPR_PRIME
+... SLIST } SLIST ELSEPART BLK ) EXPR_PRIME TERM | ( id % num == num ...          | RULE: TERM -> FACTOR TERM_PRIME
+... } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME FACTOR | ( id % num == num ...          | RULE: FACTOR -> ( EXPR )
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR ( | ( id % num == num ...          | MATCH '('
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR | id % num == num ) ...          | RULE: EXPR -> TERM EXPR_PRIME
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | id % num == num ) ...          | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | id % num == num ) ...          | RULE: FACTOR -> id
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME id | id % num == num ) ...          | MATCH 'id'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | % num == num ) || ...          | RULE: TERM_PRIME -> % FACTOR TERM_PRIME
+... ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR % | % num == num ) || ...          | MATCH '%'
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num == num ) || ( ...          | RULE: FACTOR -> num
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num == num ) || ( ...          | MATCH 'num'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | == num ) || ( id ...           | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | == num ) || ( id ...           | RULE: EXPR_PRIME -> == TERM EXPR_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM == | == num ) || ( id ...           | MATCH '=='
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | num ) || ( id > ...            | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num ) || ( id > ...            | RULE: FACTOR -> num
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num ) || ( id > ...            | MATCH 'num'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | ) || ( id > num ...            | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | ) || ( id > num ...            | RULE: EXPR_PRIME -> eps
+... } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) | ) || ( id > num ...            | MATCH ')'
+... SLIST } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME | || ( id > num ) ...            | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST ELSEPART BLK ) EXPR_PRIME | || ( id > num ) ...            | RULE: EXPR_PRIME -> || TERM EXPR_PRIME
+... } SLIST ELSEPART BLK ) EXPR_PRIME TERM || | || ( id > num ) ...            | MATCH '||'
+... SLIST } SLIST ELSEPART BLK ) EXPR_PRIME TERM | ( id > num ) ) ...             | RULE: TERM -> FACTOR TERM_PRIME
+... } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME FACTOR | ( id > num ) ) ...             | RULE: FACTOR -> ( EXPR )
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR ( | ( id > num ) ) ...             | MATCH '('
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR | id > num ) ) { ...             | RULE: EXPR -> TERM EXPR_PRIME
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | id > num ) ) { ...             | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | id > num ) ) { ...             | RULE: FACTOR -> id
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME id | id > num ) ) { ...             | MATCH 'id'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | > num ) ) { id ...             | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | > num ) ) { id ...             | RULE: EXPR_PRIME -> > TERM EXPR_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM > | > num ) ) { id ...             | MATCH '>'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | num ) ) { id = ...             | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num ) ) { id = ...             | RULE: FACTOR -> num
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num ) ) { id = ...             | MATCH 'num'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | ) ) { id = id ...              | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | ) ) { id = id ...              | RULE: EXPR_PRIME -> eps
+... } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) | ) ) { id = id ...              | MATCH ')'
+... SLIST } SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME | ) { id = id + ...              | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST ELSEPART BLK ) EXPR_PRIME | ) { id = id + ...              | RULE: EXPR_PRIME -> eps
+$ SLIST } SLIST ELSEPART BLK )      | ) { id = id + ...              | MATCH ')'
+$ SLIST } SLIST ELSEPART BLK        | { id = id + id ...             | RULE: BLK -> { SLIST }
+$ SLIST } SLIST ELSEPART } SLIST {  | { id = id + id ...             | MATCH '{'
+$ SLIST } SLIST ELSEPART } SLIST    | id = id + id ; ...             | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST ELSEPART } SLIST STMT | id = id + id ; ...             | RULE: STMT -> ASGN
+$ SLIST } SLIST ELSEPART } SLIST ASGN | id = id + id ; ...             | RULE: ASGN -> id = EXPR ;
+... SLIST ELSEPART } SLIST ; EXPR = id | id = id + id ; ...             | MATCH 'id'
+... } SLIST ELSEPART } SLIST ; EXPR = | = id + id ; } ...              | MATCH '='
+... SLIST } SLIST ELSEPART } SLIST ; EXPR | id + id ; } else ...           | RULE: EXPR -> TERM EXPR_PRIME
+... } SLIST ELSEPART } SLIST ; EXPR_PRIME TERM | id + id ; } else ...           | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id + id ; } else ...           | RULE: FACTOR -> id
+... SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME id | id + id ; } else ...           | MATCH 'id'
+... } SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME | + id ; } else { ...            | RULE: TERM_PRIME -> eps
+... SLIST } SLIST ELSEPART } SLIST ; EXPR_PRIME | + id ; } else { ...            | RULE: EXPR_PRIME -> + TERM EXPR_PRIME
+... SLIST ELSEPART } SLIST ; EXPR_PRIME TERM + | + id ; } else { ...            | MATCH '+'
+... } SLIST ELSEPART } SLIST ; EXPR_PRIME TERM | id ; } else { id ...           | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id ; } else { id ...           | RULE: FACTOR -> id
+... SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME id | id ; } else { id ...           | MATCH 'id'
+... } SLIST ELSEPART } SLIST ; EXPR_PRIME TERM_PRIME | ; } else { id = ...            | RULE: TERM_PRIME -> eps
+... SLIST } SLIST ELSEPART } SLIST ; EXPR_PRIME | ; } else { id = ...            | RULE: EXPR_PRIME -> eps
+$ SLIST } SLIST ELSEPART } SLIST ;  | ; } else { id = ...            | MATCH ';'
+$ SLIST } SLIST ELSEPART } SLIST    | } else { id = id ...           | RULE: SLIST -> eps
+$ SLIST } SLIST ELSEPART }          | } else { id = id ...           | MATCH '}'
+$ SLIST } SLIST ELSEPART            | else { id = id - ...           | RULE: ELSEPART -> else BLK
+$ SLIST } SLIST BLK else            | else { id = id - ...           | MATCH 'else'
+$ SLIST } SLIST BLK                 | { id = id - num ...            | RULE: BLK -> { SLIST }
+$ SLIST } SLIST } SLIST {           | { id = id - num ...            | MATCH '{'
+$ SLIST } SLIST } SLIST             | id = id - num ; ...            | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST } SLIST STMT        | id = id - num ; ...            | RULE: STMT -> ASGN
+$ SLIST } SLIST } SLIST ASGN        | id = id - num ; ...            | RULE: ASGN -> id = EXPR ;
+... } SLIST } SLIST ; EXPR = id     | id = id - num ; ...            | MATCH 'id'
+... SLIST } SLIST } SLIST ; EXPR =  | = id - num ; } ...             | MATCH '='
+$ SLIST } SLIST } SLIST ; EXPR      | id - num ; } id ...            | RULE: EXPR -> TERM EXPR_PRIME
+... SLIST } SLIST } SLIST ; EXPR_PRIME TERM | id - num ; } id ...            | RULE: TERM -> FACTOR TERM_PRIME
+... } SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id - num ; } id ...            | RULE: FACTOR -> id
+... } SLIST } SLIST ; EXPR_PRIME TERM_PRIME id | id - num ; } id ...            | MATCH 'id'
+... SLIST } SLIST } SLIST ; EXPR_PRIME TERM_PRIME | - num ; } id = ...             | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST } SLIST ; EXPR_PRIME | - num ; } id = ...             | RULE: EXPR_PRIME -> - TERM EXPR_PRIME
+... } SLIST } SLIST ; EXPR_PRIME TERM - | - num ; } id = ...             | MATCH '-'
+... SLIST } SLIST } SLIST ; EXPR_PRIME TERM | num ; } id = id ...            | RULE: TERM -> FACTOR TERM_PRIME
+... } SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num ; } id = id ...            | RULE: FACTOR -> num
+... } SLIST } SLIST ; EXPR_PRIME TERM_PRIME num | num ; } id = id ...            | MATCH 'num'
+... SLIST } SLIST } SLIST ; EXPR_PRIME TERM_PRIME | ; } id = id + ...              | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST } SLIST ; EXPR_PRIME | ; } id = id + ...              | RULE: EXPR_PRIME -> eps
+$ SLIST } SLIST } SLIST ;           | ; } id = id + ...              | MATCH ';'
+$ SLIST } SLIST } SLIST             | } id = id + num ...            | RULE: SLIST -> eps
+$ SLIST } SLIST }                   | } id = id + num ...            | MATCH '}'
+$ SLIST } SLIST                     | id = id + num ; ...            | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST STMT                | id = id + num ; ...            | RULE: STMT -> ASGN
+$ SLIST } SLIST ASGN                | id = id + num ; ...            | RULE: ASGN -> id = EXPR ;
+$ SLIST } SLIST ; EXPR = id         | id = id + num ; ...            | MATCH 'id'
+$ SLIST } SLIST ; EXPR =            | = id + num ; } ...             | MATCH '='
+$ SLIST } SLIST ; EXPR              | id + num ; } id ...            | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM   | id + num ; } id ...            | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id + num ; } id ...            | RULE: FACTOR -> id
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME id | id + num ; } id ...            | MATCH 'id'
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME | + num ; } id = ...             | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST ; EXPR_PRIME        | + num ; } id = ...             | RULE: EXPR_PRIME -> + TERM EXPR_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM + | + num ; } id = ...             | MATCH '+'
+$ SLIST } SLIST ; EXPR_PRIME TERM   | num ; } id = id ...            | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME FACTOR | num ; } id = id ...            | RULE: FACTOR -> num
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME num | num ; } id = id ...            | MATCH 'num'
+$ SLIST } SLIST ; EXPR_PRIME TERM_PRIME | ; } id = id / ...              | RULE: TERM_PRIME -> eps
+$ SLIST } SLIST ; EXPR_PRIME        | ; } id = id / ...              | RULE: EXPR_PRIME -> eps
+$ SLIST } SLIST ;                   | ; } id = id / ...              | MATCH ';'
+$ SLIST } SLIST                     | } id = id / ( ...              | RULE: SLIST -> eps
+$ SLIST }                           | } id = id / ( ...              | MATCH '}'
+$ SLIST                             | id = id / ( id ...             | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | id = id / ( id ...             | RULE: STMT -> ASGN
+$ SLIST ASGN                        | id = id / ( id ...             | RULE: ASGN -> id = EXPR ;
+$ SLIST ; EXPR = id                 | id = id / ( id ...             | MATCH 'id'
+$ SLIST ; EXPR =                    | = id / ( id - ...              | MATCH '='
+$ SLIST ; EXPR                      | id / ( id - id ...             | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM           | id / ( id - id ...             | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | id / ( id - id ...             | RULE: FACTOR -> id
+$ SLIST ; EXPR_PRIME TERM_PRIME id  | id / ( id - id ...             | MATCH 'id'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | / ( id - id ) ...              | RULE: TERM_PRIME -> / FACTOR TERM_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR / | / ( id - id ) ...              | MATCH '/'
+$ SLIST ; EXPR_PRIME TERM_PRIME FACTOR | ( id - id ) ; ...              | RULE: FACTOR -> ( EXPR )
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR ( | ( id - id ) ; ...              | MATCH '('
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR | id - id ) ; if ...             | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | id - id ) ; if ...             | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | id - id ) ; if ...             | RULE: FACTOR -> id
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME id | id - id ) ; if ...             | MATCH 'id'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | - id ) ; if ( ...              | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME | - id ) ; if ( ...              | RULE: EXPR_PRIME -> - TERM EXPR_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM - | - id ) ; if ( ...              | MATCH '-'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | id ) ; if ( ! ...              | RULE: TERM -> FACTOR TERM_PRIME
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | id ) ; if ( ! ...              | RULE: FACTOR -> id
+... SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME id | id ) ; if ( ! ...              | MATCH 'id'
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | ) ; if ( ! ( ...               | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME ) EXPR_PRIME | ) ; if ( ! ( ...               | RULE: EXPR_PRIME -> eps
+$ SLIST ; EXPR_PRIME TERM_PRIME )   | ) ; if ( ! ( ...               | MATCH ')'
+$ SLIST ; EXPR_PRIME TERM_PRIME     | ; if ( ! ( id ...              | RULE: TERM_PRIME -> eps
+$ SLIST ; EXPR_PRIME                | ; if ( ! ( id ...              | RULE: EXPR_PRIME -> eps
+$ SLIST ;                           | ; if ( ! ( id ...              | MATCH ';'
+$ SLIST                             | if ( ! ( id < ...              | RULE: SLIST -> STMT SLIST
+$ SLIST STMT                        | if ( ! ( id < ...              | RULE: STMT -> IF_STMT
+$ SLIST IF_STMT                     | if ( ! ( id < ...              | RULE: IF_STMT -> if ( EXPR ) BLK ELSEPART
+$ SLIST ELSEPART BLK ) EXPR ( if    | if ( ! ( id < ...              | MATCH 'if'
+$ SLIST ELSEPART BLK ) EXPR (       | ( ! ( id < num ...             | MATCH '('
+$ SLIST ELSEPART BLK ) EXPR         | ! ( id < num ) ...             | RULE: EXPR -> TERM EXPR_PRIME
+$ SLIST ELSEPART BLK ) EXPR_PRIME TERM | ! ( id < num ) ...             | RULE: TERM -> FACTOR TERM_PRIME
+$ SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME FACTOR | ! ( id < num ) ...             | RULE: FACTOR -> ! FACTOR
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME FACTOR ! | ! ( id < num ) ...             | MATCH '!'
+$ SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME FACTOR | ( id < num ) ) ...             | RULE: FACTOR -> ( EXPR )
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR ( | ( id < num ) ) ...             | MATCH '('
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR | id < num ) ) { ...             | RULE: EXPR -> TERM EXPR_PRIME
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | id < num ) ) { ...             | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | id < num ) ) { ...             | RULE: FACTOR -> id
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME id | id < num ) ) { ...             | MATCH 'id'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | < num ) ) { print ...          | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | < num ) ) { print ...          | RULE: EXPR_PRIME -> < TERM EXPR_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM < | < num ) ) { print ...          | MATCH '<'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM | num ) ) { print ( ...          | RULE: TERM -> FACTOR TERM_PRIME
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME FACTOR | num ) ) { print ( ...          | RULE: FACTOR -> num
+... BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME num | num ) ) { print ( ...          | MATCH 'num'
+... ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME TERM_PRIME | ) ) { print ( id ...           | RULE: TERM_PRIME -> eps
+... SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) EXPR_PRIME | ) ) { print ( id ...           | RULE: EXPR_PRIME -> eps
+$ SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME ) | ) ) { print ( id ...           | MATCH ')'
+$ SLIST ELSEPART BLK ) EXPR_PRIME TERM_PRIME | ) { print ( id ) ...           | RULE: TERM_PRIME -> eps
+$ SLIST ELSEPART BLK ) EXPR_PRIME   | ) { print ( id ) ...           | RULE: EXPR_PRIME -> eps
+$ SLIST ELSEPART BLK )              | ) { print ( id ) ...           | MATCH ')'
+$ SLIST ELSEPART BLK                | { print ( id ) ; ...           | RULE: BLK -> { SLIST }
+$ SLIST ELSEPART } SLIST {          | { print ( id ) ; ...           | MATCH '{'
+$ SLIST ELSEPART } SLIST            | print ( id ) ; } ...           | RULE: SLIST -> STMT SLIST
+$ SLIST ELSEPART } SLIST STMT       | print ( id ) ; } ...           | RULE: STMT -> PRNT
+$ SLIST ELSEPART } SLIST PRNT       | print ( id ) ; } ...           | RULE: PRNT -> print ( id ) ;
+... ELSEPART } SLIST ; ) id ( print | print ( id ) ; } ...           | MATCH 'print'
+... SLIST ELSEPART } SLIST ; ) id ( | ( id ) ; } else ...            | MATCH '('
+$ SLIST ELSEPART } SLIST ; ) id     | id ) ; } else { ...            | MATCH 'id'
+$ SLIST ELSEPART } SLIST ; )        | ) ; } else { print ...         | MATCH ')'
+$ SLIST ELSEPART } SLIST ;          | ; } else { print ( ...         | MATCH ';'
+$ SLIST ELSEPART } SLIST            | } else { print ( id ...        | RULE: SLIST -> eps
+$ SLIST ELSEPART }                  | } else { print ( id ...        | MATCH '}'
+$ SLIST ELSEPART                    | else { print ( id ) ...        | RULE: ELSEPART -> else BLK
+$ SLIST BLK else                    | else { print ( id ) ...        | MATCH 'else'
+$ SLIST BLK                         | { print ( id ) ; ...           | RULE: BLK -> { SLIST }
+$ SLIST } SLIST {                   | { print ( id ) ; ...           | MATCH '{'
+$ SLIST } SLIST                     | print ( id ) ; } ...           | RULE: SLIST -> STMT SLIST
+$ SLIST } SLIST STMT                | print ( id ) ; } ...           | RULE: STMT -> PRNT
+$ SLIST } SLIST PRNT                | print ( id ) ; } ...           | RULE: PRNT -> print ( id ) ;
+... SLIST } SLIST ; ) id ( print    | print ( id ) ; } ...           | MATCH 'print'
+$ SLIST } SLIST ; ) id (            | ( id ) ; } $                   | MATCH '('
+$ SLIST } SLIST ; ) id              | id ) ; } $                     | MATCH 'id'
+$ SLIST } SLIST ; )                 | ) ; } $                        | MATCH ')'
+$ SLIST } SLIST ;                   | ; } $                          | MATCH ';'
+$ SLIST } SLIST                     | } $                            | RULE: SLIST -> eps
+$ SLIST }                           | } $                            | MATCH '}'
+$ SLIST                             | $                              | RULE: SLIST -> eps
+$                                   | $                              | ACCEPTED SUCCESSFULLY
