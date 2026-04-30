@@ -1,6 +1,6 @@
 # Compiler Construction Lab
 
-This repository contains the first six labs completed for the Compiler Construction assignment:
+This repository contains the first seven labs completed for the Compiler Construction assignment:
 
 - `Lab1`: Lexical analysis
 - `Lab2`: CFG-based syntax analysis
@@ -8,6 +8,7 @@ This repository contains the first six labs completed for the Compiler Construct
 - `Lab4`: Parser implementation using Shift-Reduce and LL(1)
 - `Lab5`: Symbol table, scope handling, and semantic analysis
 - `Lab6`: Intermediate code generation using TAC (quadruples)
+- `Lab7`: Optimization and target code generation
 
 The labs build on each other:
 
@@ -17,6 +18,7 @@ The labs build on each other:
 4. `Lab4` upgrades syntax analysis into algorithmic parser construction and demonstrates two parsing techniques.
 5. `Lab5` adds symbol table management, scope handling, and semantic validation on top of parsing.
 6. `Lab6` generates intermediate code in TAC form from the AST after successful parsing and semantic checking.
+7. `Lab7` optimizes the generated TAC and emits target pseudo assembly to complete the compiler pipeline.
 
 ## Repository Structure
 
@@ -42,6 +44,11 @@ The labs build on each other:
 - `Lab6/tac.c`: TAC generation logic
 - `Lab6/tac.h`: TAC interface and quadruple structure
 - `Lab6/input.txt`: Evaluation program used for TAC generation
+- `Lab7/main.py`: Driver that builds and runs the full compiler pipeline with optimization and target code generation
+- `Lab7/symtab.c`: Symbol table implementation
+- `Lab7/tac.c`: TAC, optimization, and target-code-generation logic
+- `Lab7/tac.h`: TAC interface and optimization/codegen declarations
+- `Lab7/input.txt`: Evaluation program used for optimization and target code generation
 
 ## Prerequisites
 
@@ -127,13 +134,23 @@ cd Lab6
 python3 main.py
 ```
 
+### Lab 7
+
+Recommended driver:
+
+```bash
+cd Lab7
+python3 main.py
+```
+
 ## Notes
 
 - Run each lab from inside its own directory because the programs read `input.txt` from the current working directory.
-- `Lab4`, `Lab5`, and `Lab6` read from `input.txt`.
+- `Lab4`, `Lab5`, `Lab6`, and `Lab7` read from `input.txt`.
 - On this machine, the commands above work without linking `-lfl`.
 - `Lab2` is the main midsem syntax-analysis demo because it parses the official evaluation program.
 - `Lab3` is useful for showing syntax-error reporting and the semantic-analysis extension.
 - `Lab4` is the parser-implementation phase and demonstrates both shift-reduce and LL(1) parsing.
 - `Lab5` is the symbol-table and semantic-analysis phase.
 - `Lab6` is the intermediate-code-generation phase and emits TAC in quadruple form.
+- `Lab7` is the optimization and target-code-generation phase, showing TAC before/after optimization and pseudo assembly output.

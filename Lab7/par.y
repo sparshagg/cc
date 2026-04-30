@@ -221,9 +221,9 @@ void yyerror(const char *msg) {
 }
 
 int main() {
-    yyin = fopen("input", "r");
+    yyin = fopen("input.txt", "r");
     if (!yyin) {
-        printf("[!] ERROR: Could not find 'input' file.\n");
+        printf("[!] ERROR: Could not find 'input.txt' file.\n");
         return 1;
     }
     
