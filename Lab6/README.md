@@ -35,12 +35,9 @@ It handles:
 - `tac.c`: TAC generation logic
 - `tac.h`: quadruple structure and TAC interface
 - `input.txt`: input program
-- `quadruples.txt`: generated TAC output
 - `errors.txt`: generated error log
-- `symbol_table.txt`: generated symbol table snapshot
-- `tree_output.txt`: generated AST output
-- `trace_output.txt`: generated parser trace
 - `ll1_theory_output.txt`: generated FIRST/FOLLOW and LL(1) theory output
+- `quadruples.txt`, `symbol_table.txt`, `tree_output.txt`, `trace_output.txt`: committed sample/reference outputs
 - `Makefile`: optional build file
 
 ## Implementation Summary
@@ -95,18 +92,17 @@ The driver:
 1. builds the compiler
 2. runs parsing and semantic analysis
 3. generates TAC
-4. writes all output files
+4. writes `errors.txt` and `ll1_theory_output.txt`
+5. prints the AST, symbol table, and TAC to the console
 
 ## Expected Outputs
 
 After running, check:
 
-- `quadruples.txt`
 - `errors.txt`
-- `symbol_table.txt`
-- `tree_output.txt`
-- `trace_output.txt`
 - `ll1_theory_output.txt`
+
+The AST, symbol table, and TAC are printed directly to the terminal by the current implementation.
 
 ## Viva Focus
 

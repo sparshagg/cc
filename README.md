@@ -22,33 +22,56 @@ The labs build on each other:
 
 ## Repository Structure
 
-- `Lab1/q1.l`: Flex specification for the lexer
-- `Lab1/input.txt`: Input program for Lab 1
-- `Lab2/lex.l`: Flex lexer for parser input
-- `Lab2/par.y`: Bison grammar for syntax analysis
-- `Lab2/input.txt`: Official evaluation program used for syntax validation
-- `Lab3/lex.l`: Flex lexer with extra tracking for error reporting
-- `Lab3/par.y`: Bison grammar with syntax-error handling and semantic checks
-- `Lab3/parser_types.h`: Shared semantic value and type definitions
-- `Lab3/input.txt`: Sample input for Lab 3
-- `Lab4/lex.l`: Flex lexer for the shift-reduce parser
-- `Lab4/par.y`: Bison grammar for shift-reduce parsing
-- `Lab4/ll1.py`: LL(1) parser with FIRST/FOLLOW computation and stack trace
-- `Lab4/input.txt`: Evaluation program used by both parser implementations
-- `Lab5/main.py`: Driver that builds and runs the parser, semantic analyzer, and LL(1) theory output
-- `Lab5/symtab.c`: Symbol table implementation with scope and offset handling
-- `Lab5/symtab.h`: Symbol table interface
-- `Lab5/input.txt`: Evaluation program used for semantic analysis
-- `Lab6/main.py`: Driver that builds and runs the full compiler pipeline
-- `Lab6/symtab.c`: Symbol table implementation
-- `Lab6/tac.c`: TAC generation logic
-- `Lab6/tac.h`: TAC interface and quadruple structure
-- `Lab6/input.txt`: Evaluation program used for TAC generation
-- `Lab7/main.py`: Driver that builds and runs the full compiler pipeline with optimization and target code generation
-- `Lab7/symtab.c`: Symbol table implementation
-- `Lab7/tac.c`: TAC, optimization, and target-code-generation logic
-- `Lab7/tac.h`: TAC interface and optimization/codegen declarations
-- `Lab7/input.txt`: Evaluation program used for optimization and target code generation
+### `Lab1/`
+
+- `q1.l`: Flex specification for the lexer
+- `input.txt`: Input program for Lab 1
+
+### `Lab2/`
+
+- `lex.l`: Flex lexer for parser input
+- `par.y`: Bison grammar for syntax analysis
+- `input.txt`: Official evaluation program used for syntax validation
+
+### `Lab3/`
+
+- `lex.l`: Flex lexer with extra tracking for error reporting
+- `par.y`: Bison grammar with syntax-error handling and semantic checks
+- `parser_types.h`: Shared semantic value and type definitions
+- `input.txt`: Sample input for Lab 3
+
+### `Lab4/`
+
+- `lex.l`: Flex lexer for the shift-reduce parser
+- `par.y`: Bison grammar for shift-reduce parsing
+- `ll1.py`: LL(1) parser with FIRST/FOLLOW computation and stack trace
+- `input.txt`: Evaluation program used by both parser implementations
+
+### `Lab5/`
+
+- `main.py`: Driver that builds and runs the parser, semantic analyzer, and LL(1) theory output
+- `par.y`: Parser with semantic actions
+- `symtab.c`: Symbol table implementation with scope and offset handling
+- `symtab.h`: Symbol table interface
+- `input.txt`: Evaluation program used for semantic analysis
+
+### `Lab6/`
+
+- `main.py`: Driver that builds and runs the full compiler pipeline
+- `par.y`: Parser with semantic actions and TAC generation
+- `symtab.c`: Symbol table implementation
+- `tac.c`: TAC generation logic
+- `tac.h`: TAC interface and quadruple structure
+- `input.txt`: Evaluation program used for TAC generation
+
+### `Lab7/`
+
+- `main.py`: Driver that builds and runs the full compiler pipeline with optimization and target code generation
+- `par.y`: Parser with semantic actions, TAC, optimization, and codegen integration
+- `symtab.c`: Symbol table implementation
+- `tac.c`: TAC, optimization, and target-code-generation logic
+- `tac.h`: TAC interface and optimization/codegen declarations
+- `input.txt`: Evaluation program used for optimization and target code generation
 
 ## Prerequisites
 
@@ -57,6 +80,7 @@ The following tools should be installed:
 - `flex`
 - `bison`
 - `gcc`
+- `python3`
 
 Check them with:
 
@@ -64,6 +88,7 @@ Check them with:
 which flex
 which bison
 which gcc
+which python3
 ```
 
 ## How To Run
@@ -148,9 +173,11 @@ python3 main.py
 - Run each lab from inside its own directory because the programs read `input.txt` from the current working directory.
 - `Lab4`, `Lab5`, `Lab6`, and `Lab7` read from `input.txt`.
 - On this machine, the commands above work without linking `-lfl`.
+- `python3` is required for the driver scripts used in `Lab4` through `Lab7`.
 - `Lab2` is the main midsem syntax-analysis demo because it parses the official evaluation program.
 - `Lab3` is useful for showing syntax-error reporting and the semantic-analysis extension.
 - `Lab4` is the parser-implementation phase and demonstrates both shift-reduce and LL(1) parsing.
 - `Lab5` is the symbol-table and semantic-analysis phase.
 - `Lab6` is the intermediate-code-generation phase and emits TAC in quadruple form.
 - `Lab7` is the optimization and target-code-generation phase, showing TAC before/after optimization and pseudo assembly output.
+- In `Lab6` and `Lab7`, most compiler results are printed to the console during execution; some text artifacts in those folders are committed sample outputs from earlier runs.

@@ -32,10 +32,8 @@ The implementation supports:
 - `symtab.c`: symbol table implementation
 - `input.txt`: input program
 - `errors.txt`: generated compilation error log
-- `symbol_table.txt`: generated symbol table snapshot
-- `tree_output.txt`: generated AST output
-- `trace_output.txt`: generated parser trace
 - `ll1_theory_output.txt`: generated FIRST/FOLLOW and LL(1) theory output
+- `symbol_table.txt`, `tree_output.txt`, `trace_output.txt`: committed sample/reference outputs
 
 ## Implementation Summary
 
@@ -85,18 +83,18 @@ The driver:
 
 1. builds the C compiler using Bison, Lex/Flex, and GCC
 2. runs the parser and semantic analyzer
-3. generates output files
+3. writes `errors.txt`
 4. generates LL(1) theory output for FIRST/FOLLOW and stack trace
+5. prints the AST and symbol table to the console during execution
 
 ## Expected Outputs
 
 After running, check:
 
 - `errors.txt`
-- `symbol_table.txt`
-- `tree_output.txt`
-- `trace_output.txt`
 - `ll1_theory_output.txt`
+
+The AST and symbol table are printed directly to the terminal by the current implementation.
 
 ## Viva Focus
 

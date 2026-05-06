@@ -216,13 +216,15 @@ void generate_assembly() {
         } else if (strcmp(op, "=") == 0) {
             printf("    LOAD R1, %s\n", arg1);
             printf("    STORE R1, %s\n", res);
-        } else if (strcmp(op, "+") == 0 || strcmp(op, "-") == 0 || strcmp(op, "*") == 0 || strcmp(op, "/") == 0) {
+        } else if (strcmp(op, "+") == 0 || strcmp(op, "-") == 0 || strcmp(op, "*") == 0 ||
+                   strcmp(op, "/") == 0 || strcmp(op, "%") == 0) {
             printf("    LOAD R1, %s\n", arg1);
             printf("    LOAD R2, %s\n", arg2);
             if (strcmp(op, "+")==0) printf("    ADD R3, R1, R2\n");
             if (strcmp(op, "-")==0) printf("    SUB R3, R1, R2\n");
             if (strcmp(op, "*")==0) printf("    MUL R3, R1, R2\n");
             if (strcmp(op, "/")==0) printf("    DIV R3, R1, R2\n");
+            if (strcmp(op, "%")==0) printf("    MOD R3, R1, R2\n");
             printf("    STORE R3, %s\n", res);
         } else if (strcmp(op, "IFFALSE") == 0) {
             printf("    LOAD R1, %s\n", arg1);
@@ -232,11 +234,14 @@ void generate_assembly() {
         } else if (strcmp(op, "print") == 0) {
             printf("    LOAD R1, %s\n", arg1);
             printf("    PRINT R1\n");
-        } else if (strcmp(op, "<")==0 || strcmp(op, ">")==0 || strcmp(op, "==")==0 || strcmp(op, "!=")==0) {
+        } else if (strcmp(op, "<")==0 || strcmp(op, ">")==0 || strcmp(op, "<=")==0 ||
+                   strcmp(op, ">=")==0 || strcmp(op, "==")==0 || strcmp(op, "!=")==0) {
             printf("    LOAD R1, %s\n", arg1);
             printf("    LOAD R2, %s\n", arg2);
             if(strcmp(op, "<")==0) printf("    SLT R3, R1, R2\n");
             if(strcmp(op, ">")==0) printf("    SGT R3, R1, R2\n");
+            if(strcmp(op, "<=")==0) printf("    SLE R3, R1, R2\n");
+            if(strcmp(op, ">=")==0) printf("    SGE R3, R1, R2\n");
             if(strcmp(op, "==")==0) printf("    SEQ R3, R1, R2\n");
             if(strcmp(op, "!=")==0) printf("    SNE R3, R1, R2\n");
             printf("    STORE R3, %s\n", res);
@@ -245,6 +250,10 @@ void generate_assembly() {
             printf("    LOAD R2, %s\n", arg2);
             if(strcmp(op, "&&")==0) printf("    AND R3, R1, R2\n");
             if(strcmp(op, "||")==0) printf("    OR R3, R1, R2\n");
+            printf("    STORE R3, %s\n", res);
+        } else if (strcmp(op, "!") == 0) {
+            printf("    LOAD R1, %s\n", arg1);
+            printf("    NOT R3, R1\n");
             printf("    STORE R3, %s\n", res);
         }
     }

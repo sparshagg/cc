@@ -4,7 +4,7 @@
 
 CC = gcc
 BISON = bison
-FLEX = lex
+FLEX = flex
 
 # Suppress warnings for a cleaner output during presentation
 CFLAGS = -w 

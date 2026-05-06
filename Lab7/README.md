@@ -34,14 +34,8 @@ This lab demonstrates:
 - `tac.c`: TAC generation, optimization, and target code generation
 - `tac.h`: TAC interface and quadruple declarations
 - `input.txt`: input program
-- `quadruples.txt`: generated TAC output
-- `optimized_quads.txt`: generated optimized TAC output
-- `target_code.asm`: generated target code output
-- `errors.txt`: generated error log
-- `symbol_table.txt`: generated symbol table snapshot
-- `tree_output.txt`: generated AST output
-- `trace_output.txt`: generated parser trace
-- `ll1_theory_output.txt`: generated FIRST/FOLLOW and LL(1) theory output
+- `quadruples.txt`, `optimized_quads.txt`, `target_code.asm`: committed sample/reference outputs
+- `errors.txt`, `symbol_table.txt`, `tree_output.txt`, `trace_output.txt`, `ll1_theory_output.txt`: committed sample/reference outputs
 - `Makefile`: optional build file
 
 ## Implementation Summary
@@ -100,18 +94,18 @@ The driver:
 3. generates TAC
 4. applies optimization
 5. generates target pseudo assembly
+6. prints the TAC, optimized TAC, and pseudo assembly to the terminal
 
 ## Expected Outputs
 
 After running, check:
 
-- `quadruples.txt`
-- `optimized_quads.txt`
-- `target_code.asm`
-- `errors.txt`
-- `symbol_table.txt`
-- `tree_output.txt`
-- `trace_output.txt`
+- console output for:
+  - TAC before optimization
+  - TAC after optimization
+  - target pseudo assembly
+
+The text artifacts already present in the folder are committed sample outputs from earlier runs.
 
 ## Viva Focus
 
@@ -122,3 +116,7 @@ Be ready to explain:
 - how arithmetic operations are translated into assembly
 - how labels and jumps preserve if/while control flow
 - how target code is generated from the intermediate representation and not hardcoded
+
+## Current Caveat
+
+The current `Lab7` pipeline prints optimized TAC and target code to stdout rather than regenerating `optimized_quads.txt` and `target_code.asm` on each run.
